@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASP</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ASP.styles.css" asp-append-version="true" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASP</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="content flex-fill container">
+            @RenderBody()
+        </main>
+
+   <footer>
+  <div class="footer-main">
+    <div class="footer-info">
+      <h6>CÔNG TY CỔ PHẦN THIẾT BỊ CÔNG NGHỆ CAO TM.<br>TM HI-TECH JSC.</h6>
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4><i class="fas fa-map-marker-alt"></i> Trụ sở:</h4>
+          <p>12B/2, 781 Hồng Hà, Quận Hoàn Kiếm, Hà Nội, Việt Nam.<br>
+          Tel: (04) 3 576 3436<br>
+          Fax: (04) 3 576 5512</p>
+        </div>
+        <div class="footer-col">
+          <h4><i class="fas fa-map-marker-alt"></i> VPĐD tại HN:</h4>
+          <p>42 Phương Mai, Đống Đa, Hà Nội<br>
+          Tel: (04) 3 576 3636 & (04) 3576 6999<br>
+          Hotline: 098 836 6622</p>
+        </div>
+        <div class="footer-col">
+          <h4><i class="fas fa-map-marker-alt"></i> Chi nhánh HCM:</h4>
+          <p>08.04 lô A, chung cư Bầu Cát 2, phường 10, Q. Tân Bình, TP.HCM<br>
+          Tel: (08) 3860 3136<br>
+          Hotline: 098 969 7177</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-facebook">
+      <h4>FACEBOOK</h4>
+      <div class="fb-widget">
+        <!-- Thay bằng iframe hoặc SDK Facebook -->
+        <img src="https://via.placeholder.com/300x150" alt="Facebook widget" />
+        <p>TM HI - TECH<br><small>4,717 lượt thích</small></p>
+        <small>Hãy là người đầu tiên trong số bạn bè của bạn thích nội dung này</small>
+        <!-- Hoặc bạn có thể nhúng iframe page Facebook -->
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <nav>     
+      <ul class="footer-menu">
+        <li><a href="#">Trang chủ</a></li>
+        <li><a href="#">Giới thiệu</a></li>
+        <li><a href="#">Sản phẩm</a></li>
+        <li><a href="#">Dự án</a></li>
+        <li><a href="#">Dịch vụ</a></li>
+        <li><a href="#">Tin tức</a></li>
+        <li><a href="#">Tuyển dụng</a></li>
+        <li><a href="#">Liên hệ</a></li>
+      </ul>
+    </nav>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+      <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+      <a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
+      <a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+      <a href="#" class="back-to-top"><i class="fas fa-chevron-up" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

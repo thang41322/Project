@@ -1,0 +1,281 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a {
+  color: #0077cc;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* Reset cơ bản và body */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Wrapper flex để sticky footer */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main.content.flex-fill.container {
+  flex: 1 0 auto; /* lấy không gian chính */
+  padding-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  background-color: #13355f; /* màu xanh đậm theo mẫu */
+  color: white;
+  padding: 40px 20px 20px 0px;
+  margin-top: auto;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+/* Container chính trong footer */
+.footer-main {
+  max-width: 1400px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Phần thông tin công ty */
+.footer-info {
+  flex: 3 1 700px; /* chiếm nhiều chỗ hơn */
+}
+
+/* Các cột bên trong thông tin */
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+/* Mỗi cột thông tin */
+.footer-col {
+  flex: 1 1 200px;
+  margin-right: 20px;
+  min-width: 180px;
+}
+
+.footer-col:last-child {
+  margin-right: 0;
+}
+
+/* Tiêu đề cột */
+.footer-col h4 {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Icon vị trí trong tiêu đề */
+.footer-col h4 i {
+  margin-right: 8px;
+  color: #8cb8f6;
+}
+
+/* Nội dung cột */
+.footer-col p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cbd5e0;
+  margin: 0;
+}
+
+/* Phần Facebook bên cạnh */
+.footer-facebook {
+  flex: 1 1 200px;
+  min-width: 280px;
+  margin-top: 10px;
+}
+
+.footer-facebook h4 {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Widget Facebook (thay ảnh bằng iframe hoặc embed thực tế) */
+.footer-facebook .fb-widget {
+  background-color: #0e2549;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #cbd5e0;
+}
+
+.footer-facebook .fb-widget img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Footer dưới cùng */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 1400px;
+  margin: 0 auto;           /* Căn giữa container */
+  padding: 15px 0;          /* Bỏ padding trái phải để menu sát lề */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;        /* Không xuống dòng */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-menu {
+  list-style: none;
+  padding-left: 0;          /* Bỏ padding trái mặc định */
+  margin: 0;                /* Bỏ margin */
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.footer-menu li {
+  margin-right: 15px;       /* Khoảng cách giữa các mục menu */
+}
+
+.footer-menu li:last-child {
+  margin-right: 0;          /* Loại bỏ margin phải phần tử cuối */
+}
+
+.footer-menu li a {
+  color: white;
+  font-size: 0.85rem;
+  text-decoration: none;
+  padding: 0;               /* Loại bỏ padding mặc định nếu có */
+  transition: color 0.3s ease;
+}
+
+.footer-menu li a:hover {
+  color: #8cb8f6;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+}
+
+.social-icons a {
+  color: white;
+  margin-left: 12px;        /* Khoảng cách giữa icon */
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #8cb8f6;
+}
+
+/* Nút back to top */
+.back-to-top {
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .footer-main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-info {
+    flex: none;
+    width: 100%;
+  }
+
+  .footer-columns {
+    justify-content: center;
+  }
+
+  .footer-col {
+    margin: 10px 15px;
+    min-width: 250px;
+  }
+
+  .footer-facebook {
+    margin-top: 30px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  footer {
+    font-size: 0.8rem;
+    padding: 30px 15px 15px 15px;
+  }
+
+  .footer-menu {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .social-icons {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
