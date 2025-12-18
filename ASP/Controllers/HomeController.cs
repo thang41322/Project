@@ -12,6 +12,35 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+    public IActionResult Services()
+    {
+        return View("~/Views/Home/Services.cshtml");
+    }
+     public IActionResult About()
+    {
+        return View("~/Views/Home/About.cshtml");
+    }
+    public IActionResult Projects()
+    {
+        return View("~/Views/Home/Projects.cshtml");
+    }
+    public IActionResult News()
+    {
+        return View("~/Views/Home/News.cshtml");
+    }
+     public IActionResult Product()
+    {
+        return View("~/Views/Home/Product.cshtml");
+    }
+    public IActionResult Recruitment()
+    {
+        return View("~/Views/Home/Recruitment.cshtml");
+    }public IActionResult Contact()
+    {
+        return View("~/Views/Home/Contact.cshtml");
+    }
+
+    
 
     public IActionResult Index()
     {
@@ -28,4 +57,8 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+   
+
 }

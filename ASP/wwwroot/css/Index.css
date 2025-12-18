@@ -1,0 +1,165 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.full-width {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+}
+
+
+.bg-light {
+    height: 300px;
+    background: rgb(215, 237, 234);
+}
+
+.bg-dark {
+    height: 70px;
+    background: rgb(91, 101, 100);
+}
+
+
+.medical-grid {
+    padding: 60px 0;
+}
+
+.grid-2 {
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.medical-item {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.overlay a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+
+
+@media (max-width: 991px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    
+}
+
+
+
+.cyan   { background: rgba(92,200,215,.6); }
+.purple { background: rgba(150,120,200,.6); }
+.yellow { background: rgba(240,185,80,.6); }
+.blue   { background: rgba(70,130,200,.6); }
+.pink   { background: rgba(230,120,160,.6); }
+
+
+
+
+.medical-knowledge {
+    background: #fff;
+    padding: 60px 0;
+}
+
+.medical-knowledge .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e1e1e;
+}
+
+.section-title a {
+    font-size: 14px;
+    color: #007bff;
+}
+
+
+.knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.knowledge-card {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease;
+}
+
+.knowledge-card:hover {
+    transform: translateY(-6px);
+}
+
+.knowledge-content {
+    padding: 15px;
+}
+
+.knowledge-content h4 {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.knowledge-content p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.knowledge-content span {
+    font-size: 13px;
+    color: #999;
+}
+
+
+@media (max-width: 992px) {
+    .knowledge-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .knowledge-grid {
+        grid-template-columns: 1fr;
+    }
+}
