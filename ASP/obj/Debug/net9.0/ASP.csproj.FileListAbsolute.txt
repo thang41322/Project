@@ -91,7 +91,10 @@ D:\Devmaster\Project\ASP\obj\Debug\net9.0\refint\ASP.dll
 D:\Devmaster\Project\ASP\obj\Debug\net9.0\ASP.pdb
 D:\Devmaster\Project\ASP\obj\Debug\net9.0\ASP.genruntimeconfig.cache
 D:\Devmaster\Project\ASP\obj\Debug\net9.0\ref\ASP.dll
-D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\csdwtj95bc-s2ji4au8ux.gz
-D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\qvv6qjnxbe-1hy0yw80f2.gz
-D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\viken71cyk-j06n5mcsuf.gz
-D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\ohgrlz8z6z-j06n5mcsuf.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\ASP.sourcelink.json
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\0fitukrag3-jik0pwnyj4.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\3xb655uwgs-5ipweew5fc.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\qvv6qjnxbe-sudx5zw31g.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\csdwtj95bc-qynchm0wkl.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\viken71cyk-mxqpek0hks.gz
+D:\Devmaster\Project\ASP\obj\Debug\net9.0\compressed\ohgrlz8z6z-mxqpek0hks.gz

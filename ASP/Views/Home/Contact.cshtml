@@ -1,2 +1,217 @@
-<div style="background-color:rgb(215, 237, 234);width:100%;height:300px;"></div>
-<div style="background-color:rgb(170, 181, 179);width:100%;height:70px;"></div>
+<center><div style="background-color:rgb(215, 237, 234);width:1600px;height:300px;"></div>
+<div style="background-color:rgb(170, 181, 179);width:1600px;height:70px;"></div></center>
+
+<head>
+    <style>
+
+.contact-page {
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px 15px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0d6efd;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.company-name {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 30px;
+}
+
+
+.contact-maps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.map-item {
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.map {
+    width: 100%;
+    height: 220px;
+}
+
+.map-item p {
+    padding: 12px;
+    font-size: 13px;
+    color: #333;
+}
+
+.contact-page {
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px 15px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0d6efd;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.company-name {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 30px;
+}
+
+.contact-maps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.map-item {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.map-item iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+}
+
+.map-item p {
+    font-size: 13px;
+    padding: 10px;
+    color: #333;
+}
+
+.contact-note {
+    text-align: center;
+    font-size: 14px;
+    color: #0d6efd;
+    margin: 30px 0;
+}
+
+
+.contact-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-form textarea {
+    height: 145px;
+    resize: none;
+}
+
+.form-left,
+.form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-submit {
+    grid-column: 2 / 3;
+    text-align: right;
+}
+
+.form-submit button {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-submit button:hover {
+    background: #495057;
+}
+
+x
+
+
+    </style>
+</head>
+<link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+<section class="contact-page">
+
+    <h2 class="page-title">LIÊN HỆ</h2>
+
+    <h3 class="company-name">
+        CÔNG TY CỔ PHẦN THIẾT BỊ CÔNG NGHỆ CAO TM.<br />
+        TM HI-TECH JSC.
+    </h3>
+
+
+    <div class="contact-maps">
+        <div class="map-item">
+            <iframe src=""></iframe>
+            <p><strong>Trụ sở:</strong><br />12B/2, 781 Hồng Hà, Hoàn Kiếm, Hà Nội</p>
+        </div>
+
+        <div class="map-item">
+            <iframe src=""></iframe>
+            <p><strong>VPĐD tại HN:</strong><br />42 Phương Mai, Đống Đa, Hà Nội</p>
+        </div>
+
+        <div class="map-item">
+            <iframe src=""></iframe>
+            <p><strong>Chi nhánh HCM:</strong><br />Bầu Cát 2, Tân Bình, TP.HCM</p>
+        </div>
+    </div>
+
+    <div class="contact-note">
+        Cảm ơn các bạn đã quan tâm đến sản phẩm và dịch vụ của Công ty chúng tôi!<br />
+        <strong>Gửi thông tin liên hệ cho chúng tôi</strong>
+    </div>
+
+
+    <form class="contact-form">
+        <div class="form-left">
+            <input type="text" placeholder="Họ tên *" required />
+            <input type="text" placeholder="Điện thoại *" required />
+            <input type="email" placeholder="Email *" required />
+            <input type="text" placeholder="Địa chỉ" />
+        </div>
+
+        <div class="form-right">
+            <input type="text" placeholder="Tiêu đề" />
+            <textarea placeholder="Nội dung"></textarea>
+        </div>
+
+        <div class="form-submit">
+            <button type="submit">GỬI ĐI</button>
+        </div>
+    </form>
+
+</section>
