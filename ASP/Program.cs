@@ -25,5 +25,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+// EF Core migrations and seeding removed; the app uses direct ADO.NET queries to read data.
 
 app.Run();

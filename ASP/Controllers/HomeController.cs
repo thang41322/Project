@@ -1,16 +1,19 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ASP.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ASP.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IConfiguration _config;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IConfiguration config)
     {
         _logger = logger;
+        _config = config;
     }
     public IActionResult Services()
     {
@@ -32,6 +35,26 @@ public class HomeController : Controller
     {
         return View("~/Views/Home/Product.cshtml");
     }
+
+
+
+
+    public async Task<IActionResult> ProductsFromSql()
+    {
+        var products = new List<Product>();
+        var connStr = _config.GetConnectionString("DefaultConnection");
+        using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connStr))
+        {
+            await conn.OpenAsync();
+            using var cmd = new Microsoft.Data.SqlClient.SqlCommand("SELECT id, Name FROM Products", conn);
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                products.Add(new Product { Id = reader.GetInt32(0), Name = reader.GetString(1)});
+            }
+        }
+        return Json(products);
+    }
     public IActionResult Recruitment()
     {
         return View("~/Views/Home/Recruitment.cshtml");
@@ -47,10 +70,6 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
