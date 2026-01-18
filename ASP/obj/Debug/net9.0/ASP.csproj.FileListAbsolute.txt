@@ -134,3 +134,7 @@ D:\Devmaster\Project\ASP\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Securit
 D:\Devmaster\Project\ASP\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Devmaster\Project\ASP\obj\Debug\net9.0\ASP.csproj.AssemblyReference.cache
 D:\Devmaster\Project\ASP\obj\Debug\net9.0\ASP.csproj.Up2Date
+D:\Devmaster\Project\ASP\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Devmaster\Project\ASP\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Devmaster\Project\ASP\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Devmaster\Project\ASP\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
