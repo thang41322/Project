@@ -1,0 +1,79 @@
+﻿@model DuAnThucTap_vs.Models.Project
+@{
+    ViewData["Title"] = Model.ProjectName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/project-detail.css" asp-append-version="true" />
+}
+
+<!-- ===== BANNER ===== -->
+<section class="project-banner">
+    <div class="overlay"></div>
+    <div class="banner-content">
+        <h1>@Model.ProjectName</h1>
+        <p>@Model.ShortDescription</p>
+    </div>
+</section>
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="project-breadcrumb">
+    <a href="/">Trang chủ</a> /
+    <a href="/Home/Project">Dự án</a> /
+    <span>@Model.ProjectName</span>
+</div>
+
+<!-- ===== MAIN ===== -->
+<section class="project-detail">
+
+    <div class="project-layout">
+
+        <!-- ===== LEFT CONTENT ===== -->
+        <article class="project-main">
+
+            <div class="project-meta">
+                <span><i class="fa-solid fa-building"></i> <b>Khách hàng:</b> @Model.Customer</span>
+                <span><i class="fa-solid fa-location-dot"></i> <b>Địa điểm:</b> @Model.Location</span>
+                <span><i class="fa-regular fa-clock"></i> <b>Thời gian:</b> @Model.Time</span>
+            </div>
+
+            <img src="~/assets/img/@Model.ImageUrl" class="project-detail-img" />
+
+            <div class="project-content">
+                @Html.Raw(Model.Content)
+            </div>
+
+            <div class="project-highlight">
+                Dự án được triển khai theo tiêu chuẩn quốc tế, đảm bảo an toàn,
+                hiệu quả vận hành và nâng cao chất lượng khám chữa bệnh.
+            </div>
+
+            <div class="project-back">
+                <a href="/Home/Project">← Quay lại danh sách dự án</a>
+            </div>
+
+        </article>
+
+        <!-- ===== RIGHT SIDEBAR ===== -->
+        <aside class="project-sidebar">
+
+            <div class="sidebar-box">
+                <h3>Dự án liên quan</h3>
+                <ul>
+                    <li><a href="#">Dự án phòng mổ Hybrid hiện đại</a></li>
+                    <li><a href="#">Lắp đặt hệ thống MRI 3.0 Tesla</a></li>
+                    <li><a href="#">Trang bị thiết bị hồi sức tích cực</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box contact-box">
+                <h3>Liên hệ tư vấn</h3>
+                <p><i class="fa-solid fa-phone"></i> 0123 456 789</p>
+                <p><i class="fa-solid fa-envelope"></i> info@tmhitech.vn</p>
+            </div>
+
+        </aside>
+
+    </div>
+</section>

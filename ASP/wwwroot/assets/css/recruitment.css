@@ -1,0 +1,172 @@
+/* ===== MEDICAL CAREER ===== */
+.medical-career {
+    margin-top: 140px;
+    font-family: "Montserrat", sans-serif;
+    background: #f4f9fc;
+}
+
+/* HERO */
+.medical-hero {
+    height: 420px;
+    background: linear-gradient(
+            135deg,
+            rgba(0, 120, 160, 0.9),
+            rgba(0, 180, 200, 0.85)
+        ),
+        url("../img/medical-bg.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.medical-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.medical-hero h1 {
+    font-size: 38px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.medical-hero strong {
+    color: #eaffff;
+}
+
+.medical-hero p {
+    font-size: 17px;
+    opacity: 0.95;
+}
+
+/* WRAP */
+.medical-wrap {
+    max-width: 1200px;
+    margin: -70px auto 80px;
+    padding: 0 20px;
+}
+
+.medical-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #006b8f;
+}
+
+/* GRID */
+.medical-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.medical-job {
+    position: relative;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0, 120, 160, 0.15);
+    transition: 0.35s;
+}
+
+.medical-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #cdd9e2, #00c6ff);
+    opacity: 0;
+    z-index: -1;
+    transition: 0.35s;
+}
+
+.medical-job:hover::before {
+    opacity: 1;
+}
+
+.medical-job:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 120, 160, 0.25);
+}
+
+.medical-job.featured {
+    border: 2px solid #00b4c8;
+}
+
+/* ICON */
+.job-med-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0078a0, #00b4c8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 180, 200, 0.45);
+}
+
+/* TEXT */
+.medical-job h3 {
+    font-size: 20px;
+    color: #005f7a;
+    margin-bottom: 10px;
+}
+
+.medical-meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    color: #5f7f8f;
+}
+
+.medical-meta i {
+    color: #00b4c8;
+    margin-right: 4px;
+}
+
+.medical-job p {
+    font-size: 14px;
+    color: #6b8b9a;
+    margin-bottom: 22px;
+}
+
+/* FOOTER */
+.medical-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.medical-salary {
+    font-weight: 600;
+    color: #005f7a;
+}
+
+.medical-apply {
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #0078a0, #00b4c8);
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.medical-apply:hover {
+    box-shadow: 0 12px 30px rgba(0, 180, 200, 0.6);
+}

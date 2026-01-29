@@ -1,0 +1,71 @@
+﻿@model List<DuAnThucTap_vs.Models.Project>
+
+@{
+    ViewData["Title"] = "Giới thiệu - TM Hitech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/project.css" asp-append-version="true" />
+}
+<main class="main">
+    <div id="header-include"></div>
+
+    <section class="project-banner"></section>
+
+    
+
+    <section class="content">
+    
+        <div class="content-left">
+
+            <div class="projects-grid">
+                @foreach (var item in Model.Skip(1))
+                {
+                    <a href="~/Home/ProjectDetail/@item.ProjectId">
+                        <div class="project-item">
+                            <img src="~/assets/img/@item.ImageUrl" alt="@item.ProjectName" />
+                            <p class="line-clamp">@item.ProjectName</p>
+                        </div>
+                    </a>
+                }
+            </div>
+
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="pagination">
+
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <a class="page-num"
+                           href="/Home/Project?page=@(ViewBag.CurrentPage - 1)">
+                            &laquo;
+                        </a>
+                    }
+
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a class="page-num @(i == ViewBag.CurrentPage ? "active" : "")"
+                           href="/Home/Project?page=@i">
+                            @i
+                        </a>
+                    }
+
+                    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                    {
+                        <a class="page-num"
+                           href="/Home/Project?page=@(ViewBag.CurrentPage + 1)">
+                            &raquo;
+                        </a>
+                    }
+                </div>
+            }
+
+        </div>
+
+
+        <aside class="content-right" id="sidebar-include">@await Html.PartialAsync("_Sidebar")</aside>
+    </section>
+
+    <div id="footer-include"></div>
+</main>

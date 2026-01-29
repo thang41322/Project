@@ -1,0 +1,232 @@
+﻿
+
+.container {
+    width: 1200px;
+    max-width: 100%;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+/* ================= BANNER ================= */
+.category-banner {
+    margin-top: var(--margin-top-head);
+    position: relative;
+    height: 300px;
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.banner-content {
+    position: relative;
+    text-align: center;
+    max-width: 800px;
+}
+
+    .banner-content h1 {
+        font-size: 38px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .banner-content p {
+        font-size: 16px;
+        opacity: 0.95;
+    }
+
+/* ================= FILTER ================= */
+.product-category {
+    padding: 20px 0 50px;
+}
+
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+    .category-filter button {
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+        .category-filter button:hover {
+            background: #0ea5e9;
+            color: #fff;
+            border-color: #0ea5e9;
+        }
+
+        .category-filter button.active {
+            background: #0369a1;
+            color: #fff;
+            border-color: #0369a1;
+        }
+
+/* ================= GRID ================= */
+.products-container {
+    width: 100%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* ================= CARD ================= */
+.product-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+    .product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+    }
+
+/* IMAGE */
+.product-image {
+    position: relative;
+    height: 200px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .product-image img {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+    }
+
+/* BRAND TAG */
+.brand-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #0369a1;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* CONTENT */
+.product-content {
+    padding: 18px;
+}
+
+    .product-content h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+.product-meta {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 14px;
+}
+
+/* BUTTON */
+.btn-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0369a1;
+    transition: 0.2s;
+}
+
+    .btn-detail i {
+        font-size: 12px;
+    }
+
+    .btn-detail:hover {
+        color: #0ea5e9;
+    }
+
+.no-product {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+    .no-product i {
+        font-size: 48px;
+        color: #999;
+        margin-bottom: 16px;
+    }
+
+    .no-product h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .no-product p {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+.btn-contact {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #0a5ea8;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .btn-contact:hover {
+        background: #084a85;
+    }
+
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1100px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .banner-content h1 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,100 @@
+﻿@model DuAnThucTap_vs.Models.Category
+@{
+    ViewData["Title"] = Model.CategoryName;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/detail.css" asp-append-version="true" />
+}
+
+
+<div class="app">
+
+  
+    <section class="category-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <h1>@Model.CategoryName</h1>
+            
+        </div>
+    </section>
+
+
+    <main class="product-category">
+        <div class="container">
+
+
+            <div class="category-filter">
+                <button class="active" data-filter="all">Tất cả</button>
+
+                @foreach (var b in Model.Products
+                                .Where(p => p.Brand != null)
+                                .Select(p => p.Brand)
+                                .GroupBy(b => b.BrandId)
+                                .Select(g => g.First()))
+                {
+                    <button data-filter="@b.BrandId">
+                        @b.BrandName
+                    </button>
+                }
+
+            </div>
+
+          
+            <section class="products">
+                <div class="products-container">
+                    <div class="product-grid">
+
+                        @if (Model.Products == null || Model.Products.Count == 0)
+                        {
+                            <div class="no-product">
+                                <i class="fa-solid fa-box-open"></i>
+                                <h3>Chưa có sản phẩm</h3>
+                                <p>
+                                    Danh mục <strong>@Model.CategoryName</strong> hiện chưa có sản phẩm.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+
+                            @foreach (var p in Model.Products)
+                            {
+                                <div class="product-card"
+                                     data-category="@p.BrandId">
+
+                                    <a href="/Product/Detail/@p.ProductId" class="product-image">
+                                        <img src="~/assets/img/@p.ImageUrl"
+                                             alt="@p.ProductName" />
+
+                                        <span class="brand-tag">
+                                            @p.Brand?.BrandName
+                                        </span>
+                                    </a>
+
+                                    <div class="product-content">
+                                        <h3>@p.ProductName</h3>
+
+                                        <p class="product-meta">
+                                            @Model.CategoryName
+                                        </p>
+
+                                        <a href="/Product/Detail/@p.ProductId"
+                                           class="btn-detail">
+                                            Xem chi tiết
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+</div>
+

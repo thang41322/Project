@@ -1,128 +1,174 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<main id="app">
+    <div id="header-include"></div>
 
-       <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
-<center><div style="background-color:rgb(215, 237, 234);width:1600px;height:300px;"></div>
-<div style="background-color:rgb(170, 181, 179);width:1600px;height:70px;"></div></center>
+    <div class="containers">
 
-
-
-
-        <section class="medical-grid">
-    <div class=" grid-2">
-
-        <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay cyan">
-                <span>THIẾT BỊ</span>
-                <h3>CHẨN ĐOÁN<br>HÌNH ẢNH</h3>
-                <a href="#">Xem chi tiết</a>
+        <div class="banner">
+            <div class="arrow left-arrow">&#10094;</div>
+            <div class="arrow right-arrow">&#10095;</div>
+            <div class="banner-container">
+                <div class="contents">
+                    <h1>
+                        HỆ THỐNG GÂY MÊ KÈM THỞ <br />
+                        <span>PASITHEC HEYER</span>
+                    </h1>
+                    <div class="divider"></div>
+                    <ul class="info-list">
+                        <li>
+                            <span class="arrow-bullet">===></span>
+                            Model: Pasithec
+                        </li>
+                        <li>
+                            <span class="arrow-bullet">===></span> Hãng sản xuất: HEYER
+                        </li>
+                        <li>
+                            <span class="arrow-bullet">===></span> Nước sản xuất: ĐỨC
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-detail">Chi tiết <span class="btn-arrow">></span></a>
+                </div>
+                <div class="image-section">
+                    <img src="~/assets/img/pasithec-machine.png"
+                         alt="Hệ thống gây mê Pasithec Heyer" />
+                </div>
+                <div class="shape-right"></div>
             </div>
         </div>
 
-        <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay purple">
-                <span>THIẾT BỊ</span>
-                <h3>HỒI SỨC<br>CẤP CỨU</h3>
-                <a href="#">Xem chi tiết</a>
-            </div>
-        </div>
+       
+        <section class="brands">
+            <div class="brands-box">
+                <span class="brands-label">CÁC HÃNG SẢN XUẤT</span>
+                <button class="brands-arrow left">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
 
-        <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay yellow">
-                <span>THIẾT BỊ</span>
-                <h3>PHÒNG MỔ</h3>
-                <a href="#">Xem chi tiết</a>
-            </div>
-        </div>
+                <div class="brands-list">
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <div class="brands-item">
+                            <img src="~/assets/img/@brand.LogoUrl"
+                                 alt="@brand.BrandName"
+                                 title="@brand.BrandName" />
+                        </div>
+                    }
+                </div>
 
-        <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay blue">
-                <span>THIẾT BỊ</span>
-                <h3>CHUYÊN KHOA NỘI</h3>
-                <a href="#">Xem chi tiết</a>
+                <button class="brands-arrow right">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
-        </div>
-         <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay pink">
-                <span>THIẾT BỊ</span>
-                <h3>CHUYÊN KHOA SẢN - NHI</h3>
-                <a href="#">Xem chi tiết</a>
-            </div>
-        </div>
+        </section>
 
-        <div class="medical-item" style="background-image:url('https://via.placeholder.com/800x500')">
-            <div class="overlay blue">
-                <span>THIẾT BỊ</span>
-                <h3>PHỤC HỒI CHỨC NĂNG</h3>
-                <a href="#">Xem chi tiết</a>
-            </div>
-        </div>
+    
+        <section class="product-grid-full">
+            @{
+                
+                string[] colorClasses = { "cyan", "purple", "yellow", "steel", "pink", "blue" };
+                var index = 0;
+            }
 
+            @foreach (var cat in Model.Categories)
+            {
+                <div class="cat-item @colorClasses[index % colorClasses.Length]">
+                    <div class="cat-info">
+                        <span>THIẾT BỊ</span>
+                        <h3>@cat.CategoryName</h3>
+                        <a href="/category/@cat.Slug" class="btn-more">Xem thêm</a>
+                        
+                    </div>
+
+                    <div class="cat-img">
+                        <img src="~/assets/img/@cat.ImageUrl" alt="@cat.CategoryName" />
+                    </div>
+                </div>
+
+                index++;
+            }
+        </section>
+
+
+
+        
+        <section class="medical-news">
+            <div class="news-header">
+                <h2>KIẾN THỨC Y TẾ</h2>
+                <div class="news-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
+                </div>
+            </div>
+
+          
+            <div class="news-slider-mobile">
+                <div class="news-slide active">
+                    <div class="news-img-mobile">
+                        <img src="~/assets/img/new-1.png" alt="Kiến thức y tế 1" />
+                    </div>
+                    <div class="news-text-mobile">
+                        <h3>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để tự cứu lấy mình</h3>
+                        <p>Bạn cảm thấy trong ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan đến cánh tay và cằm. Ngay lúc này, muốn đến...</p>
+                    </div>
+                </div>
+
+                <div class="news-slide">
+                    <div class="news-img-mobile">
+                        <img src="~/assets/img/new-2.png" alt="Kiến thức y tế 2" />
+                    </div>
+                    <div class="news-text-mobile">
+                        <h3>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để tự cứu lấy mình</h3>
+                        <p>Bạn cảm thấy trong ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan đến cánh tay và cằm. Ngay lúc này, muốn đến...</p>
+                    </div>
+                </div>
+
+                <div class="news-slide">
+                    <div class="news-img-mobile">
+                        <img src="~/assets/img/new-3.png" alt="Kiến thức y tế 3" />
+                    </div>
+                    <div class="news-text-mobile">
+                        <h3>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để tự cứu lấy mình</h3>
+                        <p>Bạn cảm thấy trong ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan đến cánh tay và cằm. Ngay lúc này, muốn đến...</p>
+                    </div>
+                </div>
+
+                <div class="news-slide">
+                    <div class="news-img-mobile">
+                        <img src="~/assets/img/new-4.png" alt="Kiến thức y tế 4" />
+                    </div>
+                    <div class="news-text-mobile">
+                        <h3>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để tự cứu lấy mình</h3>
+                        <p>Bạn cảm thấy trong ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan đến cánh tay và cằm. Ngay lúc này, muốn đến...</p>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="news-grid">
+                @foreach (var item in Model.News)
+                {
+                    <a href="/Home/NewsDetail/@item.NewsId">
+                        <div class="news-item">
+                            <div class="news-img">
+                                <img src="~/assets/img/@item.Thumbnail" alt="@item.Title" />
+                            </div>
+                            <div class="news-text">
+                                <h3>@item.Title</h3>
+                                <p>@item.ShortDescription</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </section>
     </div>
-</section>
 
-<section class="medical-knowledge">
-    <div class="container">
-
-        <div class="section-title">
-            <h2>KIẾN THỨC Y TẾ</h2>
-            <a href="#">Xem tất cả</a>
-        </div>
-
-        <div class="knowledge-grid">
-
-            <div class="knowledge-card">
-                <img src="https://via.placeholder.com/400x250" />
-                <div class="knowledge-content">
-                    <h4>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để cứu lấy mình</h4>
-                    <p>
-                        Bệnh nhân thường ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan
-                        đến cánh tay và cằm...
-                    </p>
-                    <span>Ngày 10/10/2024</span>
-                </div>
-            </div>
-
-            <div class="knowledge-card">
-                <img src="https://via.placeholder.com/400x250" />
-                <div class="knowledge-content">
-                    <h4>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để cứu lấy mình</h4>
-                    <p>
-                        Bệnh nhân thường ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan
-                        đến cánh tay và cằm...
-                    </p>
-                    <span>Ngày 10/10/2024</span>
-                </div>
-            </div>
-
-            <div class="knowledge-card">
-                <img src="https://via.placeholder.com/400x250" />
-                <div class="knowledge-content">
-                    <h4>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để cứu lấy mình</h4>
-                    <p>
-                        Bệnh nhân thường ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan
-                        đến cánh tay và cằm...
-                    </p>
-                    <span>Ngày 10/10/2024</span>
-                </div>
-            </div>
-
-            <div class="knowledge-card">
-                <img src="https://via.placeholder.com/400x250" />
-                <div class="knowledge-content">
-                    <h4>Khi bị nhồi máu cơ tim, bạn chỉ có 10 giây để cứu lấy mình</h4>
-                    <p>
-                        Bệnh nhân thường ngực có một luồng đau nhói, hơn thế nữa nó bắt đầu lan
-                        đến cánh tay và cằm...
-                    </p>
-                    <span>Ngày 10/10/2024</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
+    <div id="footer-include"></div>
+</main>

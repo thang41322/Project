@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Giới thiệu - TM Hitech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/service.css" asp-append-version="true" />
+}
+
+@* @section Sidebar {
+    @await Html.PartialAsync("_Sidebar")
+} *@
+
+<main class="main">
+    <!-- SERVICE PAGE BANNER -->
+    <section class="sv-banner"></section>
+
+    <!-- SERVICE BREADCRUMB -->
+   
+
+    <!-- SERVICE MAIN CONTENT -->
+    <section class="sv-wrapper">
+        <!-- LEFT CONTENT -->
+        <div class="sv-main">
+            <h2 class="sv-title">DỊCH VỤ</h2>
+
+            <p class="sv-text">
+                Với đội ngũ chuyên gia có kinh nghiệm hơn 10 năm tham
+                gia các dự án đầu tư mua sắm trang thiết bị y tế, TM
+                Hitech đảm bảo sẽ đưa ra những tư vấn hữu ích cho dự án
+                của bạn.
+            </p>
+
+            <p class="sv-text">
+                Trong bối cảnh thị trường rộng mở như hiện nay, có rất
+                nhiều dòng thiết bị y tế với giá cả và chất lượng khác
+                nhau để khách hàng lựa chọn. Điều này đôi khi khiến việc
+                quyết định đầu tư trở nên khó khăn.
+            </p>
+
+            <p class="sv-text">
+                Kinh nghiệm lâu năm trong ngành thiết bị y tế, TM Hitech
+                tự tin có thể hỗ trợ khách hàng thiết kế tổng thể dự án,
+                xây dựng cấu hình chi tiết các dòng thiết bị phù hợp cho
+                bệnh viện hay phòng khám.
+            </p>
+
+            <div class="sv-image-block">
+                <img src="../assets/img/service.png"
+                     alt="Service Image" />
+            </div>
+
+            <h3 class="sv-subtitle">Dịch vụ trong bảo hành</h3>
+
+            <p class="sv-text">
+                Tất cả các thiết bị Công ty cung cấp đều được bảo hành
+                đảm bảo theo đúng tiêu chuẩn và cam kết của nhà sản
+                xuất.
+            </p>
+
+            <p class="sv-text">
+                Đội ngũ kỹ sư của Công ty giàu kinh nghiệm, được cử đi
+                tập huấn và đào tạo hàng năm ở nước ngoài theo các khóa
+                tập huấn của Hãng.
+            </p>
+
+            <h3 class="sv-subtitle">Dịch vụ sau bảo hành</h3>
+
+            <p class="sv-text">
+                Kiểm tra định kỳ lâu dài cho tất cả các thiết bị do Công
+                ty cung cấp.
+            </p>
+
+            <p class="sv-text">
+                Với kinh nghiệm và uy tín của mình, TM Hitech luôn cam
+                kết hoàn thành tốt nhất các yêu cầu về cung cấp, lắp đặt
+                và tư vấn kỹ thuật.
+            </p>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="content-right" id="sidebar-include">@await Html.PartialAsync("_Sidebar")</aside>
+    </section>
+</main>

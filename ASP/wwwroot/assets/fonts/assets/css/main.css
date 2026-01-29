@@ -1,0 +1,922 @@
+/* HEADER */
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.header-fixed.shrink .header {
+    padding: 10px 30px;
+}
+.header {
+    display: flex;
+    padding: 10px 30px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.header-logo {
+    display: flex;
+}
+
+.head-logo {
+    width: 100px;
+    height: 68px;
+    padding: 2px 8px 2px 4px;
+    border: 2px solid #ccc;
+    /* box-shadow: 1px 2px 1px 2px #000; */
+}
+
+.head-text {
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.head-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.head-desc {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    padding: 14px 0 0;
+}
+
+.head-hotline {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.head-lang {
+    display: flex;
+    gap: 8px;
+}
+
+.head-lang .fi {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.head-lang .fi:hover {
+    transform: scale(1.1);
+}
+
+.head-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fff5e6;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #f39c12;
+}
+
+.head-phone-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-color: #f39c12;
+
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='white' d='M497.4 361.8l-112-48a32 32 0 0 0-36.9 9.6l-49.6 60.6a352 352 0 0 1-168-168l60.6-49.6a32 32 0 0 0 9.6-36.9l-48-112A32 32 0 0 0 119.4 0H16A16 16 0 0 0 0 16c0 273.1 222.9 496 496 496a16 16 0 0 0 16-16V392.6a32 32 0 0 0-14.6-30.8z'/%3E%3C/svg%3E")
+        no-repeat center / contain;
+}
+
+/* Navbar */
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px 16px;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.nav-item-link {
+    position: relative;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+
+.nav-list-child {
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    background-color: #ddd;
+    display: none;
+}
+
+.list-child-link {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.nav-item-link .nav-list-child:hover {
+    display: block;
+}
+
+.nav-item-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #f39c12; /* xanh trong ảnh */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-item-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-item-link:hover::after {
+    width: 80%;
+}
+
+.nav-item-link.active {
+    color: var(--primary-color);
+}
+
+.nav-item-link.active::after {
+    width: 80%;
+}
+
+.nav-search {
+    display: flex;
+    align-items: center;
+    padding: 2px 6px;
+    border: 3px solid var(--gray-color);
+    border-radius: 20px;
+    background: var(--white-color);
+}
+
+.nav-search-input {
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    width: 140px;
+}
+
+.nav-search-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* PRODUCTS */
+.nav-item.has-mega {
+    position: static; /* Để mega menu có thể tràn toàn màn hình nếu muốn */
+}
+
+/* Khối mega menu ẩn mặc định */
+.mega-menu {
+    position: absolute;
+    top: 100%; /* Ngay dưới thanh nav */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #f39c12; /* Đường kẻ cam như trong ảnh */
+    padding: 20px 0;
+    z-index: 1000;
+    display: none; /* Ẩn đi */
+}
+
+/* Hiển thị khi hover vào thẻ li cha */
+.mega-menu.is-active {
+    display: block;
+}
+
+/* Layout các cột bên trong */
+.mega-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Chia làm 6 cột đều nhau */
+    gap: 20px;
+    padding: 0 15px;
+}
+
+.mega-column {
+    border-right: 1px solid #eee; /* Đường kẻ dọc chia cột */
+    padding-right: 10px;
+}
+
+.mega-column:last-child {
+    border-right: none;
+}
+
+.mega-title {
+    color: #1a4388;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 15px;
+    text-transform: none;
+}
+
+.mega-list {
+    list-style: none;
+    padding: 0;
+}
+
+.mega-list li {
+    margin-bottom: 8px;
+}
+
+.mega-list li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.mega-list li a:hover {
+    color: #1a4388;
+    padding-left: 5px;
+}
+
+.view-all {
+    display: inline-block;
+    margin-top: 10px;
+    color: #1a4388;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* CONTAINER */
+/* --- BANNER HOME --- */
+.banner {
+    position: relative;
+    margin-top: 140px; /* Điều chỉnh lại cho khớp header */
+    width: 100%;
+    height: 550px;
+    /* SỬA ĐƯỜNG DẪN TẠI ĐÂY - BẮT ĐẦU BẰNG DẤU / */
+    background: url("../img/bg-hospital-hall.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.banner-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+    z-index: 2; /* Đảm bảo nằm trên ảnh nền */
+}
+
+    /* Mảng màu xanh bên trái */
+    .banner-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 48%; /* Tăng nhẹ chiều rộng */
+        height: 100%;
+        background-color: #1a2a4e;
+        clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        z-index: 1;
+    }
+
+/* Mảng màu xanh bên phải */
+.shape-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10%;
+    height: 100%;
+    background-color: #1a2a4e;
+    clip-path: polygon(40% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 1;
+}
+
+.content {
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 10; /* Đẩy lên trên cùng */
+    width: 45%;
+    padding:10px 0 10px 8%;
+    color: white;
+    
+}
+
+.image-section {
+    position: relative;
+    z-index: 5;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+}
+
+    .image-section img {
+        max-height: 480px;
+        width: auto;
+        /* Hiệu ứng đổ bóng máy chuyên nghiệp */
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+    }
+
+/* MŨI TÊN - SÁT MÉP */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 45px;
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.arrow:hover {
+    color: white;
+}
+/* =========================
+   CÁC HÃNG SẢN XUẤT
+========================= */
+
+.brands {
+    padding: 30px 30px;
+    background: #fff;
+}
+
+.brands-box {
+    position: relative;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    background: #fff;
+    padding: 26px 60px 20px; /* ↓ giảm padding dọc */
+}
+
+.brands-label {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f3b63;
+    text-transform: uppercase;
+    background: #fff;
+}
+
+.brands-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+.brands-item {
+    width: 140px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brands-item img {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain; /* GIỮ TỶ LỆ */
+    object-position: center;
+
+    filter: grayscale(100%);
+    opacity: 0.85;
+    transition: 0.2s ease;
+}
+
+.brands-item img:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+/* MŨI TÊN */
+.brands-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.brands-arrow.left {
+    left: 14px;
+}
+
+.brands-arrow.right {
+    right: 14px;
+}
+
+.brands-arrow:hover {
+    background: #f5f5f5;
+}
+
+/* CATEGORY */
+.product-grid-full {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Chia làm 2 cột */
+    width: 100%;
+    /* Nếu muốn có khoảng cách giữa các ô, thêm gap: 2px; */
+}
+
+.cat-item {
+    margin: 10px;
+    position: relative;
+    height: 300px; /* Điều chỉnh chiều cao phù hợp */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    padding: 10px 40px;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    background-image: url("../img/bg-hospital-hall.png");
+}
+
+/* Lớp phủ màu mờ (Overlay) */
+.cat-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: 0.3s;
+}
+
+.cat-item::before:hover {
+    width: 0%;
+}
+
+/* Thiết lập ảnh nền và màu cho từng ô theo thiết kế */
+/* Ô 1: Chẩn đoán hình ảnh */
+.cat-item.cyan {
+    background-image: url("../img/bg-hospital-hall.png"); /* Thay bằng ảnh nền mờ của bạn */
+}
+.cat-item.cyan::before {
+    background-color: rgba(0, 188, 212, 0.8);
+} /* Màu xanh lơ mờ */
+
+/* Ô 2: Hồi sức cấp cứu */
+.cat-item.purple {
+    background-image: url("../img/bg-hospital-2.png");
+}
+.cat-item.purple::before {
+    background-color: rgba(156, 39, 176, 0.4);
+} /* Màu tím mờ hơn */
+
+/* Ô 3: Phòng mổ */
+.cat-item.yellow {
+    background-image: url("../img/bg-hospital-3.png");
+}
+.cat-item.yellow::before {
+    background-color: rgba(255, 160, 0, 0.8);
+}
+
+/* Ô 4: Chuyên khoa nội */
+.cat-item.steel {
+    background-image: url("../img/bg-hospital-3.png");
+}
+.cat-item.steel::before {
+    background-color: rgba(69, 90, 100, 0.7);
+}
+
+/* Ô 5: Sản nhi */
+.cat-item.pink {
+    background-image: url("../img/bg-hospital-3.png");
+}
+.cat-item.pink::before {
+    background-color: rgba(233, 30, 99, 0.7);
+}
+
+/* Ô 6: Phục hồi chức năng */
+.cat-item.blue {
+    background-image: url("../img/bg-hospital-3.png");
+}
+.cat-item.blue::before {
+    background-color: rgba(3, 169, 244, 0.8);
+}
+
+/* Nội dung bên trong (Chữ và Ảnh máy) */
+.cat-info {
+    position: relative;
+    z-index: 2; /* Nổi lên trên lớp màu mờ */
+    max-width: 50%;
+}
+
+.cat-info span {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.cat-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+}
+
+.btn-more {
+    display: inline-block;
+    padding: 6px 15px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
+}
+
+.btn-more:hover {
+    background: #fff;
+    color: #333;
+}
+
+.cat-img {
+    position: relative;
+    bottom: -40px;
+    z-index: 2;
+    height: 80%;
+}
+
+.cat-img img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    /* Hiệu ứng đổ bóng cho thiết bị nổi bật hơn */
+    filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+/* Hiệu ứng Hover: Làm lớp màu sáng lên hoặc tối đi */
+.cat-item:hover::before {
+    opacity: 0.6;
+}
+
+/* 3. SECTION KIẾN THỨC Y TẾ */
+.medical-news {
+    width: 100%;
+    padding: 40px 0;
+    background: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề phần Kiến thức y tế */
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.news-header h2 {
+    font-size: 1.5rem;
+    color: #1a3052;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+/* Các dấu chấm trang trí */
+.news-dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+.news-dots span:first-child {
+    background: #1a3052;
+}
+
+/* Hệ thống lưới 4 cột */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Chia 4 cột đều nhau */
+    gap: 15px; /* Khoảng cách giữa các khối */
+    padding: 0 30px;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column; /* Sắp xếp ảnh và text theo chiều dọc */
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.4s ease; /* Thời gian chuyển đổi mượt mà */
+    cursor: pointer;
+    position: relative;
+    top: 0; /* Để lát nữa hover thì đẩy lên */
+}
+
+.news-img {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.news-item:hover {
+    /* Đổ bóng sâu hơn và đẩy khối lên trên 5px */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    top: -5px;
+    border-color: #1a3052; /* Đổi màu viền sang xanh đậm */
+}
+
+.news-item:hover .news-img img {
+    transform: scale(1.1); /* Phóng to ảnh 10% */
+}
+
+.news-item:hover .news-text h3 {
+    color: #f39c12; /* Đổi tiêu đề sang màu cam khi hover */
+    transition: color 0.3s ease;
+}
+
+.news-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 48, 82, 0.2); /* Lớp phủ xanh mờ */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.news-item:hover .news-img::after {
+    opacity: 1;
+}
+
+.news-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Phần Chữ */
+.news-text {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.news-text h3 {
+    font-size: 1.1rem;
+    color: #1a3052;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn 2 dòng cho tiêu đề */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-text p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho mô tả */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile: Xuống thành 1 cột */
+@media (max-width: 768px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* FOOTER */
+.footer {
+    background-color: #0f2137;
+    color: #eaf2fb;
+    padding: 32px 30px 20px;
+}
+
+/* Tiêu đề */
+.footer-title {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    color: #cfe7ff;
+    line-height: 1.5;
+}
+
+.footer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-facebook-title {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #cfe7ff;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Hàng cột nằm ngang */
+.footer-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    width: 100%;
+    padding-right: 30px;
+}
+
+.footer-col {
+    min-width: 340px;
+    max-width: 380px;
+}
+
+.footer-info-group {
+    display: flex; /* Kích hoạt flexbox */
+    align-items: stretch; /* Ép các con (p và sep) có chiều cao bằng nhau */
+    gap: 25px; /* Khoảng cách giữa chữ và đường kẻ */
+}
+
+.footer-info-group p {
+    margin: 0;
+    flex: 1;
+    line-height: 1.6;
+    font-size: 1.4rem;
+}
+
+.footer-info-group strong {
+    font-weight: 600;
+}
+
+.footer-info-group span {
+    display: inline-block;
+    padding-top: 8px;
+}
+
+.footer-sep {
+    height: 110px;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Màu trắng mờ thanh lịch */
+    display: block;
+}
+
+.footer-col i.footer-col-icon {
+    margin-right: 6px;
+    color: #18a0fb;
+}
+
+.footer-col-head {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.footer-col-icon {
+    margin-right: 6px;
+    color: #18a0fb;
+}
+
+.footer-facebook {
+    margin-left: auto;
+}
+
+.footer-facebook img {
+    width: 240px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+    display: block; /* Loại bỏ khoảng trống thừa dưới ảnh */
+}
+/* Dòng dưới cùng */
+.footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.footer-menu {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-menu li a {
+    color: #eaf2fb;
+    font-size: 1.4rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-menu li a:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-social a {
+    margin-left: 12px;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--white-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.footer-social a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Responsive: xếp dọc khi màn hình nhỏ */
+@media (max-width: 992px) {
+    .footer-row {
+        flex-wrap: wrap;
+    }
+    .footer-facebook {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-sep {
+        display: none;
+    }
+    .footer-col {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,40 @@
+﻿@model DuAnThucTap_vs.Models.Product
+@{
+    ViewData["Title"] = Model.ProductName;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/project-detail.css" asp-append-version="true" />
+}
+
+<section class="product-detail-page">
+    <div class="container">
+
+        <div class="product-detail-layout">
+
+      
+            <div class="product-detail-img">
+                <img src="~/assets/img/@Model.ImageUrl" alt="@Model.ProductName" />
+            </div>
+
+         
+            <div class="product-detail-info">
+                <h1>@Model.ProductName</h1>
+
+                <ul>
+                    <li><strong>Hãng sản xuất:</strong> @Model.Brand.BrandName</li>
+                    <li><strong>Danh mục:</strong> @Model.Category.CategoryName</li>
+                </ul>
+
+                <div class="product-desc">
+                    @Html.Raw(Model.Description)
+                </div>
+
+                <a href="/Contact" class="btn-contact">
+                    Liên hệ tư vấn
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>

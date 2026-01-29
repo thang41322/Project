@@ -1,261 +1,49 @@
 /* _content/ASP/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
 
-*[b-ejlkpthfcb] {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+a.navbar-brand[b-fso4aeewg2] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
 }
 
-html[b-ejlkpthfcb], body[b-ejlkpthfcb] {
-    height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f8f9fa;
+a[b-fso4aeewg2] {
+  color: #0077cc;
 }
 
-a[b-ejlkpthfcb] {
-    text-decoration: none;
-    color: inherit;
+.btn-primary[b-fso4aeewg2] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
 }
 
-ul[b-ejlkpthfcb] {
-    list-style: none;
+.nav-pills .nav-link.active[b-fso4aeewg2], .nav-pills .show > .nav-link[b-fso4aeewg2] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
 }
 
-
-.wrapper[b-ejlkpthfcb] {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+.border-top[b-fso4aeewg2] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-fso4aeewg2] {
+  border-bottom: 1px solid #e5e5e5;
 }
 
-main[b-ejlkpthfcb] {
-    flex: 1;
+.box-shadow[b-fso4aeewg2] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-.site-header[b-ejlkpthfcb] {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
+button.accept-policy[b-fso4aeewg2] {
+  font-size: 1rem;
+  line-height: inherit;
 }
 
-.top-header[b-ejlkpthfcb] {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.top-header .container[b-ejlkpthfcb] {
-    max-width: 1400px;
-    margin: auto;
-    padding: 12px 15px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo-area[b-ejlkpthfcb] {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-area img[b-ejlkpthfcb] {
-    height: 60px;
-}
-
-.company-info h1[b-ejlkpthfcb] {
-    font-size: 15px;
-    font-weight: 700;
-    color: #004a9f;
-    text-transform: uppercase;
-}
-
-.company-info p[b-ejlkpthfcb] {
-    font-size: 13px;
-    color: #555;
-}
-
-.header-right[b-ejlkpthfcb] {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.language img[b-ejlkpthfcb] {
-    width: 24px;
-    cursor: pointer;
-}
-
-.hotline[b-ejlkpthfcb] {
-    font-size: 18px;
-    font-weight: 700;
-    color: #f7931e;
-}
-
-.nav-bar[b-ejlkpthfcb] {
-    background: #f8f8f8;
-    position: relative;
-    z-index: 100;
-}
-
-.nav-flex[b-ejlkpthfcb] {
-    max-width: 1400px;
-    margin: auto;
-    padding: 0 15px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.menu[b-ejlkpthfcb] {
-    display: flex;
-}
-
-.menu > li[b-ejlkpthfcb] {
-    position: relative;
-}
-
-.menu > li > a[b-ejlkpthfcb] {
-    display: block;
-    padding: 16px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-}
-
-.menu > li > a:hover[b-ejlkpthfcb] {
-    color: #0d6efd;
-}
-
-
-.search-box input[b-ejlkpthfcb] {
-    padding: 6px 14px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-}
-
-
-footer[b-ejlkpthfcb] {
-    background: #13355f;
-    color: #ffffff;
-    padding: 40px 0 20px;
-    margin-top: auto;
-}
-
-.footer-main[b-ejlkpthfcb] {
-    max-width: 1400px;
-    margin: auto;
-    padding: 0 15px 30px;
-
-    display: flex;
-    gap: 30px;
-}
-
-.footer-info[b-ejlkpthfcb] {
-    flex: 3;
-}
-
-.footer-columns[b-ejlkpthfcb] {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.footer-col[b-ejlkpthfcb] {
-    flex: 1 1 30%;
-}
-
-.footer-col h4[b-ejlkpthfcb] {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.footer-col p[b-ejlkpthfcb] {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #cbd5e0;
-}
-
-.footer-facebook[b-ejlkpthfcb] {
-    flex: 1;
-}
-
-.footer-facebook .fb-widget[b-ejlkpthfcb] {
-    background: #0e2549;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-.footer-bottom[b-ejlkpthfcb] {
-    max-width: 1400px;
-    margin: auto;
-    padding: 15px 15px 0;
-    border-top: 1px solid rgba(255,255,255,.2);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.footer-menu[b-ejlkpthfcb] {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.footer-menu a[b-ejlkpthfcb] {
-    font-size: 13px;
-    color: #ffffff;
-}
-
-.footer-menu a:hover[b-ejlkpthfcb] {
-    color: #8cb8f6;
-}
-
-.social-icons[b-ejlkpthfcb] {
-    display: flex;
-    gap: 12px;
-}
-
-.social-icons a[b-ejlkpthfcb] {
-    font-size: 18px;
-    color: #ffffff;
-}
-
-.social-icons a:hover[b-ejlkpthfcb] {
-    color: #8cb8f6;
-}
-
-@media (max-width: 1200px) {
-    .mega-container[b-ejlkpthfcb] {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 991px) {
-    .top-header .container[b-ejlkpthfcb] {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-
-    .header-right[b-ejlkpthfcb] {
-        justify-content: center;
-    }
-
-    .mega-container[b-ejlkpthfcb] {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 576px) {
-    .mega-container[b-ejlkpthfcb] {
-        grid-template-columns: 1fr;
-    }
-
-    .company-info p[b-ejlkpthfcb] {
-        display: none;
-    }
+.footer[b-fso4aeewg2] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
 }

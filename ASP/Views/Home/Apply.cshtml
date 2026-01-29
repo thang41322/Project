@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "Ứng tuyển";
+    var position = Context.Request.Query["position"].ToString();
+}
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/apply.css" asp-append-version="true" />
+}
+<div class="app">
+
+
+    <section class="apply-hero">
+        <div class="container">
+            <div class="apply-content">
+                <span class="apply-badge">
+                    <i class="fa-solid fa-staff-snake"></i> ỨNG TUYỂN VỊ TRÍ
+                </span>
+                <h1>Đơn Ứng Tuyển</h1>
+                <p class="apply-subtitle">
+                    Hãy cùng chúng tôi mang đến sức khỏe tốt đẹp hơn cho cộng đồng
+                </p>
+
+                <div class="current-position">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <strong>Vị trí ứng tuyển:</strong>
+                    <span>@(string.IsNullOrEmpty(position) ? "Chưa chọn" : position)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="apply-form-section">
+        <div class="container">
+
+            <form asp-action="Apply"
+                  asp-controller="Recruitment"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="recruitment-form">
+
+        
+                <input type="hidden" name="Position" value="@position" />
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" name="FullName" required />
+                    </div>
+
+                    <div class="form-group form-phone">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" name="Phone" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="Email" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Vị trí mong muốn <span class="required">*</span></label>
+                    <select name="PositionSelect" required>
+                        <option value="">-- Chọn vị trí --</option>
+                        <option value="Bác sĩ Đa khoa">Bác sĩ Đa khoa</option>
+                        <option value="Điều dưỡng">Điều dưỡng</option>
+                        <option value="Nhân viên CNTT Y tế">Nhân viên CNTT Y tế</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Kinh nghiệm làm việc</label>
+                    <input type="text" name="Experience" />
+                </div>
+
+                <div class="form-group">
+                    <label>Lý do ứng tuyển / Giới thiệu bản thân</label>
+                    <textarea name="Message" rows="6"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Upload CV <span class="required">*</span></label>
+                        <input type="file" name="CV" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Thư ứng tuyển</label>
+                        <input type="file" name="CoverLetter" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-apply-submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Gửi Đơn Ứng Tuyển
+                </button>
+            </form>
+
+        </div>
+    </section>
+</div>

@@ -1,0 +1,76 @@
+﻿@model DuAnThucTap_vs.Models.News
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/news-detail.css" asp-append-version="true" />
+}
+
+<main class="news-pro">
+
+  
+    <header class="news-header">
+        <h1 class="news-title">@Model.Title</h1>
+
+        <div class="news-meta">
+            <span class="meta-date">@Model.CreatedDate?.ToString("dd MMM yyyy")</span>
+            <span class="meta-author">Ban biên tập TM Hitech</span>
+        </div>
+    </header>
+
+   
+    @if (!string.IsNullOrEmpty(Model.Thumbnail))
+    {
+        <figure class="news-featured-img">
+            <img src="~/assets/img/@Model.Thumbnail" alt="@Model.Title" />
+            <figcaption>@Model.Title</figcaption>
+        </figure>
+    }
+
+
+    <section class="news-lead">
+        <p>
+            <strong>@Model.Title</strong> — @Model.ShortDescription
+        </p>
+    </section>
+
+
+    <article class="news-content">
+        @Html.Raw(Model.Content)
+    </article>
+
+ 
+    <section class="news-author">
+        <div class="author-avatar">
+            <img src="~/assets/img/bg-hospital-2.png" alt="Author" />
+        </div>
+        <div class="author-info">
+            <h4>Ban biên tập TM Hitech</h4>
+            <p>Đơn vị cung cấp tin tức chuyên sâu về lĩnh vực y tế và công nghệ.</p>
+        </div>
+    </section>
+
+
+    <section class="news-related">
+        <h2>Tin tức liên quan</h2>
+        <div class="related-grid">
+            @* Giả lập 4 tin liên quan *@
+            <div class="related-card">
+                <a href="#">Ứng dụng AI trong chẩn đoán bệnh</a>
+            </div>
+            <div class="related-card">
+                <a href="#">Xu hướng trang bị thiết bị y tế 2025</a>
+            </div>
+            <div class="related-card">
+                <a href="#">Bệnh viện thông minh & IoT</a>
+            </div>
+            <div class="related-card">
+                <a href="#">An toàn dữ liệu bệnh nhân</a>
+            </div>
+        </div>
+    </section>
+
+</main>

@@ -1,0 +1,69 @@
+﻿@using DuAnThucTap_vs.Models
+@inject AppDbContext _context
+
+@{
+    var featuredProducts = _context.Products
+        .Where(p => (p.IsActive ?? false))
+        .Take(6)
+        .ToList();
+
+    var hotNews = _context.News
+        .Where(n => (n.IsActive ?? false))
+        .OrderByDescending(n => n.CreatedDate)
+        .Take(2)
+        .ToList();
+}
+
+<div class="sidebar-box">
+    <div class="sidebar-header">SẢN PHẨM NỔI BẬT</div>
+    <div class="sidebar-content">
+
+        @foreach (var p in featuredProducts)
+        {
+            <div class="sidebar-item">
+                <a href="/Product/Detail/@p.ProductId" class="item-thumb">
+                    <img src="~/assets/img/@p.ImageUrl" />
+                </a>
+
+                <div class="item-info">
+                    <a class="item-title line-clamp"
+                       href="/Product/Detail/@p.ProductId">
+                        @p.ProductName
+                    </a>
+
+                    <a class="item-more"
+                       href="/Product/Detail/@p.ProductId">
+                        ▶ Xem chi tiết
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="sidebar-box mt-20">
+    <div class="sidebar-header">TIN NỔI BẬT</div>
+    <div class="sidebar-content">
+
+        @foreach (var n in hotNews)
+        {
+            <div class="news-side-item">
+                <a href="/Home/NewsDetail/@n.NewsId" class="news-thumb">
+                    <img src="~/assets/img/@n.Thumbnail" />
+                </a>
+
+                <div class="news-info">
+                    <a href="/Home/NewsDetail/@n.NewsId">
+                        @n.Title
+                    </a>
+
+                    <span class="news-date">
+                        @n.CreatedDate?.ToString("dd-MM-yyyy")
+                    </span>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

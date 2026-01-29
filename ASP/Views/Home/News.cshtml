@@ -1,5 +1,145 @@
+﻿@model IEnumerable<DuAnThucTap_vs.Models.News>
+
 @{
-    ViewData["Title"] = "News";
+    ViewData["Title"] = "Tin tức - TM Hitech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<center><div style="background-color:rgb(215, 237, 234);width:1600px;height:300px;"></div>
-<div style="background-color:rgb(170, 181, 179);width:1600px;height:70px;"></div></center>
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/news.css" asp-append-version="true" />
+}
+
+<main class="app">
+
+    <section class="sv-banner"></section>
+
+   
+
+    <section class="content">
+        <div class="content-layout container">
+
+       
+            <div class="content-left">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-bullhorn"></i> TIN TỨC
+                </h2>
+
+             
+                @if (ViewBag.FeaturedNews != null)
+                {
+                    var f = ViewBag.FeaturedNews as DuAnThucTap_vs.Models.News;
+
+                    <div class="news-item featured">
+                        <div class="news-item__img">
+                            <a href="/Home/NewsDetail/@f.NewsId">
+                                <img src="~/assets/img/@f.Thumbnail" alt="@f.Title" />
+                            </a>
+                        </div>
+
+                        <div class="news-item__info">
+                            <h3 class="news-item__title">
+                                <a href="/Home/NewsDetail/@f.NewsId">
+                                    @f.Title
+                                </a>
+                            </h3>
+
+                            <p class="news-item__date">
+                                <i class="fa-regular fa-clock"></i>
+                                @(f.CreatedDate?.ToString("dd/MM/yyyy") ?? "Chưa có ngày")
+                            </p>
+
+                            <p class="news-item__desc">
+                                @f.Content
+                            </p>
+
+                            <div class="news-item__action">
+                                <a href="/Home/NewsDetail/@f.NewsId" class="btn-detail">
+                                    CHI TIẾT <i class="fa-solid fa-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                
+                @if (!Model.Any())
+                {
+                    <p>Chưa có tin tức nào để hiển thị.</p>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="news-item">
+                            <div class="news-item__img">
+                                <a href="/Home/NewsDetail/@item.NewsId">
+                                    <img src="~/assets/img/@item.Thumbnail" alt="@item.Title" />
+                                </a>
+                            </div>
+
+                            <div class="news-item__info">
+                                <h3 class="news-item__title">
+                                    <a href="/Home/NewsDetail/@item.NewsId">
+                                        @item.Title
+                                    </a>
+                                </h3>
+
+                                <p class="news-item__date">
+                                    <i class="fa-regular fa-clock"></i>
+                                    @(item.CreatedDate?.ToString("dd/MM/yyyy") ?? "Chưa có ngày")
+                                </p>
+
+                                <p class="news-item__desc">
+                                    @item.ShortDescription
+                                </p>
+
+                                <div class="news-item__action">
+                                    <a href="/Home/NewsDetail/@item.NewsId" class="btn-detail">
+                                        CHI TIẾT <i class="fa-solid fa-play"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+               
+                @if (ViewBag.TotalPages > 1)
+                {
+                    <div class="pagination">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <a class="page-num"
+                               href="/Home/News?page=@(ViewBag.CurrentPage - 1)">
+                                &laquo;
+                            </a>
+                        }
+
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <a class="page-num @(i == ViewBag.CurrentPage ? "active" : "")"
+                               href="/Home/News?page=@i">
+                                @i
+                            </a>
+                        }
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <a class="page-num"
+                               href="/Home/News?page=@(ViewBag.CurrentPage + 1)">
+                                &raquo;
+                            </a>
+                        }
+                    </div>
+                }
+
+            </div>
+
+            <!-- RIGHT -->
+            <aside class="content-right">
+                @await Html.PartialAsync("_Sidebar")
+            </aside>
+
+        </div>
+    </section>
+</main>

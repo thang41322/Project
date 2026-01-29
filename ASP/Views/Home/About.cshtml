@@ -1,69 +1,96 @@
-@{
-    ViewBag.Title = "Giới thiệu";
-   
+﻿@{
+    ViewData["Title"] = "Giới thiệu - TM Hitech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-     <link rel="stylesheet" href="~/css/about.css" asp-append-version="true" />
-  <center><div style="background-color:rgb(215, 237, 234);width:1600px;height:300px;"></div>
-<div style="background-color:rgb(170, 181, 179);width:1600px;height:70px;"></div></center>
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/about.css" asp-append-version="true" />
+}
 
-    <div class=" mt-4">
-        <div class="row">
+<section class="banner">
+    <div class="banner-text">
+        <span>Làm mọi thứ với một niềm đam mê, hoặc không là gì cả.</span>
+        <span>Cuộc sống luôn đong đầy những điều tốt đẹp, trong đó có cả bạn.</span>
+        <span>
+            Gia đình, bạn bè và cộng đồng thường là nguồn động viên
+            <br />
+            của mỗi người trong chúng ta
+        </span>
+    </div>
+</section>
 
-           
-            <div class="col-md-8">
-                <div class="box">
-                    <h4 class="box-title">GIỚI THIỆU</h4>
-                    <p><b>Công ty cổ phần thiết bị công nghệ cao TM</b></p>
-                    <p>Thành lập tháng 3 năm 2004</p>
-                    <p><b>Tên viết tắt:</b> TM Hitech.,JSC</p>
-                    <p>TM Hitech.,JSC là công ty hoạt động trong lĩnh vực kinh doanh thiết bị y tế và thiết bị chăm sóc sức khỏe gia đình của nhiều thương hiệu lớn đẳng cấp. Trải qua thời gian và kinh nghiệm làm nghề, tìm hiểu thị trường, nhu cầu của khách hàng, TM Hitech đã và đang tạo được ấn tượng mạnh mẽ với uy tín, chất lượng sản phẩm và dịch vụ được nhiều người trong ngành đánh giá cao, chuyên viên nghề, có nhiều kinh nghiệm.
-</p>
 
-                    <div class="row my-3">
-                        <div class="col-4"><img src="~/Content/images/intro1.jpg" class="img-fluid intro-img" /></div>
-                        <div class="col-4"><img src="~/Content/images/intro2.jpg" class="img-fluid intro-img" /></div>
-                        <div class="col-4"><img src="~/Content/images/intro3.jpg" class="img-fluid intro-img" /></div>
-                    </div>
+<section class="content">
+    <div class="content-left">
+        <h2>GIỚI THIỆU</h2>
 
-                    <h5 class="section-title">Hoạt động</h5>
-                    <ul>
-                        <li>Thiết bị chẩn đoán hình ảnh</li>
-                        <li>Thiết bị xét nghiệm</li>
-                        <li>Thiết bị phòng mổ</li>
-                    </ul>
+        <p><strong>Công ty cổ phần thiết bị công nghệ cao TM</strong></p>
+        <p>Được thành lập Tháng 2 năm 2004</p>
+        <p>Tên viết tắt: TM Hitech.,JSC</p>
 
-                    <h5 class="section-title">Cam kết</h5>
-                    <p>- Cam kết mang đến cho khách hàng những gì tốt nhất về sự phục vụ, năng lực nghề nghiệp, kinh nghiệm thực tế, bản lĩnh nghề nghiệp và phong cách làm việc chuyên nghiệp<br />
-- TM Hitech luôn lắng nghe và thấu hiểu nhu cầu của khách hàng, từ đó tư vấn những sản phẩm chuyên nghiệp, hiệu quả với giá cả cạnh tranh<br />
-- TM Hitech cam kết mang đến cho quý khách hàng những sản phẩm hoàn hảo, chuyên nghiệp, hiệu quả với giá cả cạnh tranh<br />
-- Sự sáng tạo và tinh thần nhiệt huyết của đội ngũ chuyên gia sẽ luôn mang đến sự thỏa mãn cho quý khách hàng<br />
-</p>
-                </div>
-            </div>
+        <p>
+            TM Hitech.,JSC là công ty hoạt động trong lĩnh vực kinh
+            doanh thiết bị y tế và thiết bị chăm sóc sức khỏe gia
+            đình của nhiều thương hiệu lớn trên thế giới. Trải qua
+            thời gian và kinh nghiệm làm việc, TM Hitech đã và đang
+            tạo được sự tin tưởng mạnh mẽ về uy tín, chất lượng sản
+            phẩm và đội ngũ chuyên nghiệp.
+        </p>
 
-         
-            <div class="col-md-4">
-                <div class="box mb-4">
-                    <h4 class="box-title">SẢN PHẨM NỔI BẬT</h4>
-                    <ul class="sidebar-list">
-                        <li><img src="~/Content/images/sp1.jpg" /><a href="#"></a></li>
-                        <li><img src="~/Content/images/sp2.jpg" /><a href="#"></a></li>
-                        <li><img src="~/Content/images/sp3.jpg" /><a href="#"></a></li>
-                    </ul>
-                </div>
+        <div class="content-images">
+            @* Dùng ảnh thật trong folder assets hoặc ảnh mẫu picsum *@
+            <img src="~/assets/img/new-2.png" />
+            <img src="~/assets/img/new-3.png" />
+            <img src="~/assets/img/new-4.png" />
+        </div>
 
-                <div class="box">
-                    <h4 class="box-title">TIN NỔI BẬT</h4>
-                    <ul class="news-list">
-                        <li><a href="#">Khi bị mỏi mắt cần làm gì?</a><span>23-02-2018</span></li>
-                        <li><a href="#">Cách chăm sóc sức khỏe</a><span>10-03-2018</span></li>
-                    </ul>
-                </div>
-            </div>
+        <h3>Hoạt động của TM Hitech:</h3>
+        <ul>
+            <li>Cung cấp thiết bị chăm sóc sức khỏe gia đình cao cấp</li>
+            <li>Cung cấp thiết bị y tế chuyên nghiệp và đẳng cấp</li>
+            <li>Đáp ứng nhu cầu khách hàng với công nghệ tiên tiến</li>
+            <li>Sản phẩm đã được kiểm nghiệm tại nhiều bệnh viện</li>
+        </ul>
 
+        <h3>Cam kết:</h3>
+        <ul class="commit">
+            <li>Cam kết đem lại cho khách hàng những giá trị thực sự về năng lực công nghệ, kinh nghiệm thực tế và phong cách làm việc chuyên nghiệp.</li>
+            <li>TM Hitech luôn cung cấp những điều kiện vật chất và môi trường làm việc tốt cho nhân viên nhằm khuyến khích sáng tạo.</li>
+            <li>Cam kết mang đến cho Quý khách hàng những sản phẩm hoàn hảo, chuyên nghiệp và hiệu quả cao.</li>
+            <li>Sự sáng tạo và nhiệt tình không ngừng của đội ngũ chuyên gia là yếu tố tạo nên sự khác biệt của TM Hitech.</li>
+        </ul>
+
+        <p class="slogan">
+            Hãy tin tưởng đón nhận những sản phẩm công nghệ cao mà
+            chúng tôi mang đến cho bạn ngay hôm nay.
+        </p>
+
+        <h3>Mọi thông tin chi tiết xin liên hệ:</h3>
+
+        <div class="contact-info">
+            <p><strong>Công ty Cổ phần Thiết Bị Công Nghệ Cao TM – TM HI-TECH JSC.</strong></p>
+            <p>
+                <strong>Trụ sở:</strong> 12B/2, 781 Hồng Hà, Quận Hoàn Kiếm, Hà Nội<br />
+                Điện thoại: 04 3576 3436 / Fax: 04 3576 5512
+            </p>
+            <p>
+                <strong>VPDD tại Hà Nội:</strong> 42 Phương Mai, Đống Đa, Hà Nội<br />
+                Điện thoại: 04 3576 3436 / Fax: 04 3576 5512<br />
+                Hotline: 0912 500 099
+            </p>
+            <p>
+                <strong>Showroom 1:</strong> 55D Hàng Bài, Hoàn Kiếm, Hà Nội<br />
+                Điện thoại: 043 9449 222 – Hotline: 0912 500 099
+            </p>
+            <p>
+                <strong>Chi nhánh HCM:</strong> 47 Trần Hưng Đạo, Quận 1, TP.HCM<br />
+                Điện thoại: 08 3821 6079 / Fax: 08 3821 6080<br />
+                Hotline: 0912 440 888
+            </p>
         </div>
     </div>
 
+    <aside class="content-right" id="sidebar-include">@await Html.PartialAsync("_Sidebar")</aside>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</section>
