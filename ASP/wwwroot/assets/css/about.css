@@ -1,4 +1,4 @@
-/* ================= BANNER ================= */
+
 .about-banner {
     width: 100%;
     margin-top: var(--margin-top-head);
@@ -29,7 +29,6 @@
     line-height: 1.8;
 }
 
-/* ================= BREADCRUMB ================= */
 .breadcrumb {
     background: #f3f3f3;
     padding: 10px 30px;
@@ -41,14 +40,13 @@
     color: #333;
 }
 
-/* ================= CONTENT LAYOUT ================= */
+
 .content {
     display: flex;
     gap: 30px;
     padding: 30px;
 }
 
-/* LEFT CONTENT */
 .content-left {
     width: 70%;
     font-size: 17px;
@@ -56,7 +54,6 @@
     color: #333;
 }
 
-/* TITLE */
 .content-left h2 {
     margin-bottom: 20px;
     color: #1e73be;
@@ -70,12 +67,12 @@
     font-weight: 600;
 }
 
-/* PARAGRAPH */
+
 .content-left p {
     margin-bottom: 14px;
 }
 
-/* IMAGE GROUP */
+
 .content-images {
     display: flex;
     gap: 10px;
@@ -87,7 +84,7 @@
     object-fit: cover;
 }
 
-/* LIST */
+
 .content-left ul {
     padding-left: 20px;
     margin-bottom: 20px;
@@ -97,7 +94,7 @@
     margin-bottom: 10px;
 }
 
-/* ================= RIGHT SIDEBAR ================= */
+
 .content-right {
     width: 30%;
 }
@@ -123,21 +120,21 @@
     padding: 8px 0;
     border-bottom: 1px solid #eee;
 }
-/* ================= RESPONSIVE ABOUT - GIỐNG HỆT TRANG DỊCH VỤ ================= */
+
 
 @media (max-width: 992px) {
-    /* Layout chính: giống sv-wrapper */
+ 
     .content {
         flex-direction: column;
-        padding: 20px 15px; /* Lề trái phải 15px, giống trang dịch vụ */
+        padding: 20px 15px; 
         gap: 30px;
     }
 
-    /* Nội dung chính */
+    
     .content-left {
         width: 100%;
         padding: 0;
-        font-size: 16.5px; /* Giống sv-main, dễ đọc hơn 1.7rem */
+        font-size: 16.5px; 
         line-height: 1.8;
         order: 1;
     }
@@ -185,13 +182,13 @@
         padding-top: 4px;
     }
 
-    /* Breadcrumb */
+
     .breadcrumb {
         padding: 10px 15px;
         font-size: 14px;
     }
 
-    /* Cụm 3 ảnh: trên mobile nhỏ xếp dọc như trang dịch vụ (ảnh đơn) */
+   
     .content-images {
         gap: 15px;
         margin: 25px 0;
@@ -204,7 +201,7 @@
         border-radius: 8px;
     }
 
-    /* Sidebar item: dùng lại style đẹp từ service (nếu chưa có thì thêm nhẹ) */
+ 
     .sidebar-item {
         padding: 15px 10px;
     }
@@ -214,7 +211,7 @@
     }
 }
 
-/* Mobile nhỏ hơn (≤480px) - tinh chỉnh cuối */
+
 @media (max-width: 480px) {
     .content-left {
         font-size: 16px;
@@ -244,3 +241,6 @@
     color: #333;
 }
 
+.contact-info strong{
+    font-weight: bold;
+}

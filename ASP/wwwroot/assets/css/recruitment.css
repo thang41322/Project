@@ -10,7 +10,7 @@
     height: 420px;
     background: linear-gradient(
             135deg,
-            rgba(0, 120, 160, 0.9),
+            rgba(26,48,82),
             rgba(0, 180, 200, 0.85)
         ),
         url("../img/medical-bg.jpg") center/cover no-repeat;
