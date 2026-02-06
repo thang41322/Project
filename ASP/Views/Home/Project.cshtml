@@ -13,7 +13,10 @@
 
     <section class="project-banner"></section>
 
-    
+    <div class="sv-breadcrumb">
+        <a href="#">Trang chủ</a> / <span>Dự án</span>
+    </div>
+
 
     <section class="content">
     
@@ -22,12 +25,12 @@
             <div class="projects-grid">
                 @foreach (var item in Model.Skip(1))
                 {
-                    <a href="~/Home/ProjectDetail/@item.ProjectId">
+                    @* <a href="~/Home/ProjectDetail/@item.ProjectId"> *@
                         <div class="project-item">
                             <img src="~/assets/img/@item.ImageUrl" alt="@item.ProjectName" />
                             <p class="line-clamp">@item.ProjectName</p>
                         </div>
-                    </a>
+                    @* </a> *@
                 }
             </div>
 

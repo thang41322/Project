@@ -335,3 +335,14 @@
         font-size: 22px;
     }
 }
+.sv-breadcrumb {
+    background: #f3f3f3;
+    padding: 10px 30px;
+    font-size: 14px;
+}
+
+.sv-breadcrumb a {
+    text-decoration: none;
+    color: #333;
+}
+

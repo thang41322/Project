@@ -11,7 +11,7 @@
 .category-banner {
     margin-top: var(--margin-top-head);
     position: relative;
-    height: 300px;
+    height: 5px;
     background: linear-gradient(135deg, #0ea5e9, #0369a1);
     display: flex;
     align-items: center;
