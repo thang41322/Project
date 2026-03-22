@@ -1,0 +1,346 @@
+﻿@model IEnumerable<Doluuniem.Models.DonHang>
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<style>
+    body {
+        background: #fff8f3;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .order-page {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #fff3e8, #ffffff);
+        border: 1px solid #f3d2b8;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+        .page-header h2 {
+            margin: 0 0 8px;
+            color: #d35400;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #7a5c47;
+            font-size: 14px;
+        }
+
+    .alert {
+        padding: 12px 16px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        font-size: 14px;
+        border: 1px solid transparent;
+    }
+
+    .success {
+        background: #e9f8ee;
+        color: #1e7e34;
+        border-color: #b7e4c7;
+    }
+
+    .error {
+        background: #fdeeee;
+        color: #c0392b;
+        border-color: #f5c6cb;
+    }
+
+    .table-wrapper {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1dfd2;
+    }
+
+    .table-title {
+        padding: 16px 20px;
+        background: #fff7f1;
+        border-bottom: 1px solid #f3e1d5;
+        font-weight: bold;
+        color: #c96a16;
+        font-size: 16px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead th {
+        background: #e67e22;
+        color: white;
+        padding: 14px 12px;
+        text-align: center;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    tbody td {
+        padding: 14px 12px;
+        text-align: center;
+        border-bottom: 1px solid #f3f3f3;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    tbody tr:hover {
+        background: #fffaf6;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .order-code {
+        font-weight: bold;
+        color: #d35400;
+    }
+
+    .customer-name {
+        font-weight: 600;
+        color: #444;
+    }
+
+    .price {
+        color: #e74c3c;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        min-width: 100px;
+    }
+
+    .pending {
+        background: #f39c12;
+    }
+
+    .confirm {
+        background: #3498db;
+    }
+
+    .done {
+        background: #2ecc71;
+    }
+
+    .cancel {
+        background: #7f8c8d;
+    }
+
+    .action-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inline-form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        min-width: 82px;
+    }
+
+        .btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+    .btn-view {
+        background: #3498db;
+    }
+
+    .btn-confirm {
+        background: #27ae60;
+    }
+
+    .btn-delete {
+        background: #e74c3c;
+    }
+
+    .cannot-cancel {
+        color: #888;
+        font-size: 13px;
+        font-style: italic;
+    }
+
+    .empty-box {
+        padding: 30px 20px;
+        text-align: center;
+        color: #888;
+        font-size: 15px;
+    }
+
+    @@media (max-width: 992px) {
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 900px;
+        }
+    }
+</style>
+
+<div class="order-page">
+
+    <div class="page-header">
+        <h2>📦 Quản lý đơn hàng</h2>
+        <p>Theo dõi, xác nhận và xử lý các đơn hàng của khách trong hệ thống.</p>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert success">@TempData["Success"]</div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert error">@TempData["Error"]</div>
+    }
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            Danh sách đơn hàng
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                        <th>Tổng tiền</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dh in Model)
+                    {
+                        <tr>
+                            <td class="order-code">#@dh.MaDonHang</td>
+
+                            <td class="customer-name">
+                                @(dh.NguoiDung != null ? dh.NguoiDung.HoTen : "Không có dữ liệu")
+                            </td>
+
+                            <td>
+                                @(dh.NgayDat.HasValue ? dh.NgayDat.Value.ToString("dd/MM/yyyy") : "")
+                            </td>
+
+                            <td>
+                                @if (dh.TrangThai == "Chờ xử lý")
+                                {
+                                    <span class="badge pending">Chờ xử lý</span>
+                                }
+                                else if (dh.TrangThai == "Đã giao")
+                                {
+                                    <span class="badge done">Đã giao</span>
+                                }
+                                else if (dh.TrangThai == "Đã hủy")
+                                {
+                                    <span class="badge cancel">Đã hủy</span>
+                                }
+                                else
+                                {
+                                    <span class="badge confirm">Đã xác nhận</span>
+                                }
+                            </td>
+
+                            <td class="price">
+                                @string.Format("{0:N0} đ", dh.TongTien)
+                            </td>
+
+                            <td>
+                                <div class="action-group">
+                                    <a href="@Url.Action("ChiTietDonHang", "Admin", new { id = dh.MaDonHang })"
+                                       class="btn btn-view">
+                                        🔍 Xem
+                                    </a>
+
+                                    @if (dh.TrangThai == "Chờ xử lý")
+                                    {
+                                        using (Html.BeginForm("XacNhanDonHang", "Admin", FormMethod.Post, new { @class = "inline-form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("id", dh.MaDonHang)
+
+                                            <button type="submit"
+                                                    class="btn btn-confirm"
+                                                    onclick="return confirm('Duyệt đơn hàng này?');">
+                                                ✅ Duyệt
+                                            </button>
+                                        }
+                                    }
+
+                                    @if (dh.TrangThai == "Chờ xử lý" || dh.TrangThai == "Đã xác nhận")
+                                    {
+                                        using (Html.BeginForm("HuyDonHang", "Admin", FormMethod.Post, new { @class = "inline-form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("id", dh.MaDonHang)
+
+                                            <button type="submit"
+                                                    class="btn btn-delete"
+                                                    onclick="return confirm('Bạn có chắc muốn hủy đơn này?');">
+                                                ❌ Hủy
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="cannot-cancel">Không thể hủy</span>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="empty-box">
+                Hiện chưa có đơn hàng nào.
+            </div>
+        }
+    </div>
+
+</div>

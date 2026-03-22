@@ -1,0 +1,135 @@
+﻿@{
+    Layout = null;
+}
+@if (TempData["Error"] != null)
+{
+    <div style="color:red; margin-bottom:10px;">
+        @TempData["Error"]
+    </div>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng Nhập</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+            .login-card h2 {
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+            .input-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+            .login-btn:hover {
+                background-color: #0056b3;
+            }
+
+        .forgot-password {
+            margin-top: 15px;
+        }
+
+            .forgot-password a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .forgot-password a:hover {
+                    text-decoration: underline;
+                }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["ThongBao"] != null)
+    {
+        <div style="color: green; text-align:center; margin-bottom:10px;">
+            @TempData["ThongBao"]
+        </div>
+    }
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Đăng Nhập</h2>
+            @if (ViewBag.Error != null)
+            {
+                <div class="error-message">@ViewBag.Error</div>
+            }
+            @using (Html.BeginForm("DangNhap", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken() // 🔥 BẮT BUỘC
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="Nhập email của bạn">
+                </div>
+
+                <div class="input-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" name="matkhau" required placeholder="Nhập mật khẩu của bạn">
+                </div>
+
+                <button type="submit" class="login-btn">Đăng Nhập</button>
+            }
+            <div class="forgot-password">
+                <a href="#">Quên mật khẩu?</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

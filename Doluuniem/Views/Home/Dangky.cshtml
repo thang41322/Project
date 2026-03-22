@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #0056b3;
+            }
+
+        .message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <form class="form-container" method="post" action="/Home/DangKy">
+        <h2>Đăng Ký</h2>
+
+        @* Hiển thị thông báo lỗi *@
+        @if (ViewBag.ThongBao != null)
+        {
+            <div class="message">@ViewBag.ThongBao</div>
+        }
+
+        @* Hiển thị thông báo thành công nếu dùng TempData *@
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="success">@TempData["ThongBao"]</div>
+        }
+
+        <input type="text" name="TenDangNhap" placeholder="Tên đăng nhập" required />
+        <input type="password" name="MatKhau" placeholder="Mật khẩu" required />
+        <input type="email" name="Email" placeholder="Email" required />
+        <input type="text" name="HoTen" placeholder="Họ tên" required />
+        <input type="date" name="NgaySinh" required />
+        <input type="text" name="SoDienThoai" placeholder="Số điện thoại" required />
+        <input type="text" name="DiaChi" placeholder="Địa chỉ" required />
+
+        <button type="submit">Đăng Ký</button>
+        <a href="/Home/DangNhap">Đã có tài khoản? Đăng nhập</a>
+    </form>
+</body>
+</html>

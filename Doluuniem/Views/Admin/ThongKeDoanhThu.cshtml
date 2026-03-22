@@ -1,0 +1,604 @@
+﻿@model Doluuniem.Models.AdminThongKeViewModel
+@using System.Web.Script.Serialization
+
+@{
+    ViewBag.Title = "Dashboard Thống Kê";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var json = new JavaScriptSerializer();
+}
+
+@section styles{
+    <style>
+        .dashboard-page {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid #ede3d8;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .bg-products {
+            background: linear-gradient(135deg, #d7a56d, #b76e3c);
+        }
+
+        .bg-users {
+            background: linear-gradient(135deg, #6bcf98, #2e8b57);
+        }
+
+        .bg-orders {
+            background: linear-gradient(135deg, #6aa8ff, #3578c8);
+        }
+
+        .bg-revenue {
+            background: linear-gradient(135deg, #f3a95d, #d87b1e);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #7b6f64;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2f2a26;
+        }
+
+        .dashboard-grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .dashboard-grid-3 {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #ede3d8;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid #f3e9de;
+            background: #fffaf6;
+        }
+
+        .panel-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #3f2d20;
+        }
+
+        .panel-body {
+            padding: 22px;
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .mini-box {
+            background: #fffaf6;
+            border: 1px solid #f0e3d5;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+            .mini-box .name {
+                font-size: 13px;
+                color: #7b6f64;
+                margin-bottom: 6px;
+            }
+
+            .mini-box .value {
+                font-size: 20px;
+                font-weight: 700;
+                color: #2f2a26;
+            }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+            .admin-table th,
+            .admin-table td {
+                padding: 14px 12px;
+                border-bottom: 1px solid #f3e9de;
+                text-align: left;
+                font-size: 14px;
+                vertical-align: middle;
+            }
+
+            .admin-table th {
+                background: #fff8f2;
+                color: #4a3425;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+
+            .admin-table tbody tr:hover {
+                background: #fffdfb;
+            }
+
+        .money {
+            color: #b76e3c;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-warning {
+            background: #fff4df;
+            color: #b7791f;
+        }
+
+        .badge-info {
+            background: #eef5ff;
+            color: #3578c8;
+        }
+
+        .badge-primary {
+            background: #f3ecff;
+            color: #6f42c1;
+        }
+
+        .badge-success {
+            background: #ebfaef;
+            color: #2f8a44;
+        }
+
+        .badge-danger {
+            background: #fff1f1;
+            color: #c0392b;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .review-item {
+            background: #fffaf6;
+            border: 1px solid #f0e3d5;
+            border-radius: 16px;
+            padding: 14px 16px;
+        }
+
+        .review-user {
+            font-weight: 700;
+            color: #2f2a26;
+            margin-bottom: 6px;
+        }
+
+        .review-product {
+            font-size: 13px;
+            color: #7b6f64;
+            margin-bottom: 8px;
+        }
+
+        .review-content {
+            font-size: 14px;
+            color: #3f2d20;
+            line-height: 1.7;
+        }
+
+        .stock-low {
+            color: #c0392b;
+            font-weight: 700;
+        }
+
+        .chart-box {
+            position: relative;
+            height: 330px;
+        }
+
+            .chart-box.small {
+                height: 280px;
+            }
+
+        @@media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid-2,
+            .dashboard-grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+}
+
+<div class="dashboard-page">
+
+    <!-- KPI -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Tổng sản phẩm</div>
+                    <div class="stat-value">@Model.TongSanPham</div>
+                </div>
+                <div class="stat-icon bg-products">
+                    <i class="fas fa-box-open"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Tổng khách hàng</div>
+                    <div class="stat-value">@Model.TongKhachHang</div>
+                </div>
+                <div class="stat-icon bg-users">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Tổng đơn hàng</div>
+                    <div class="stat-value">@Model.TongDonHang</div>
+                </div>
+                <div class="stat-icon bg-orders">
+                    <i class="fas fa-receipt"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Tổng doanh thu</div>
+                    <div class="stat-value">@String.Format("{0:N0}", Model.TongDoanhThu)đ</div>
+                </div>
+                <div class="stat-icon bg-revenue">
+                    <i class="fas fa-coins"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Biểu đồ chính -->
+    <div class="dashboard-grid-2">
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Biểu đồ doanh thu 12 tháng gần nhất</h3>
+            </div>
+            <div class="panel-body">
+                <div class="chart-box">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Trạng thái đơn hàng</h3>
+            </div>
+            <div class="panel-body">
+                <div class="mini-stats" style="margin-bottom:20px;">
+                    <div class="mini-box">
+                        <div class="name">Chờ xác nhận</div>
+                        <div class="value">@Model.DonChoXacNhan</div>
+                    </div>
+                    <div class="mini-box">
+                        <div class="name">Đang xử lý</div>
+                        <div class="value">@Model.DonDangXuLy</div>
+                    </div>
+                    <div class="mini-box">
+                        <div class="name">Đang giao</div>
+                        <div class="value">@Model.DonDangGiao</div>
+                    </div>
+                    <div class="mini-box">
+                        <div class="name">Hoàn thành</div>
+                        <div class="value">@Model.DonHoanThanh</div>
+                    </div>
+                </div>
+                <div class="chart-box small">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top sản phẩm / Top khách hàng / Tồn kho -->
+    <div class="dashboard-grid-3">
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Top sản phẩm bán chạy</h3>
+            </div>
+            <div class="panel-body">
+                <div class="chart-box small">
+                    <canvas id="topProductChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Top khách hàng</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Khách hàng</th>
+                                <th>Số đơn</th>
+                                <th>Tổng chi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TopKhachHang)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@(string.IsNullOrWhiteSpace(item.HoTen) ? item.TenDangNhap : item.HoTen)</strong><br />
+                                        <span style="color:#7b6f64; font-size:12px;">@item.TenDangNhap</span>
+                                    </td>
+                                    <td>@item.SoDonHang</td>
+                                    <td class="money">@String.Format("{0:N0}", item.TongChiTieu)đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Sản phẩm sắp hết hàng</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Loại</th>
+                                <th>Tồn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.SanPhamSapHet)
+                            {
+                                <tr>
+                                    <td>@item.TenSanPham</td>
+                                    <td>@item.TenLoaiSanPham</td>
+                                    <td class="stock-low">@item.SoLuongTon</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng chi tiết -->
+    <div class="dashboard-grid-2">
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Danh sách top sản phẩm bán chạy</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Mã SP</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng bán</th>
+                                <th>Doanh thu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TopSanPhamBanChay)
+                            {
+                                <tr>
+                                    <td>#@item.MaSanPham</td>
+                                    <td>@item.TenSanPham</td>
+                                    <td>@item.TongSoLuongBan</td>
+                                    <td class="money">@String.Format("{0:N0}", item.TongDoanhThu)đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Đánh giá mới nhất</h3>
+            </div>
+            <div class="panel-body">
+                <div class="review-list">
+                    @foreach (var dg in Model.DanhGiaMoiNhat)
+                    {
+                        <div class="review-item">
+                            <div class="review-user">@dg.TenNguoiDung</div>
+                            <div class="review-product">@dg.TenSanPham</div>
+                            <div class="review-content">@dg.BinhLuan</div>
+                            <div style="margin-top:8px;">
+                                @if (dg.SoSao.HasValue)
+                                {
+                                    if (dg.SoSao >= 4)
+                                    {
+                                        <span class="badge badge-success">@dg.SoSao sao</span>
+                                    }
+                                    else if (dg.SoSao == 3)
+                                    {
+                                        <span class="badge badge-warning">@dg.SoSao sao</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">@dg.SoSao sao</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="badge badge-info">Không có số sao</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const revenueLabels = @Html.Raw(json.Serialize(Model.ThangLabels));
+        const revenueData = @Html.Raw(json.Serialize(Model.DoanhThuTheoThang));
+
+        const statusData = [
+            @Model.DonChoXacNhan,
+            @Model.DonDangXuLy,
+            @Model.DonDangGiao,
+            @Model.DonHoanThanh,
+            @Model.DonDaHuy
+        ];
+
+        const topProductLabels = @Html.Raw(json.Serialize(Model.TopSanPhamBanChay.Select(x => x.TenSanPham).ToList()));
+        const topProductData = @Html.Raw(json.Serialize(Model.TopSanPhamBanChay.Select(x => x.TongSoLuongBan).ToList()));
+
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'bar',
+            data: {
+                labels: revenueLabels,
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: revenueData,
+                    borderWidth: 1,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Chờ xác nhận', 'Đang xử lý', 'Đang giao', 'Hoàn thành', 'Đã hủy'],
+                datasets: [{
+                    data: statusData
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        new Chart(document.getElementById('topProductChart'), {
+            type: 'bar',
+            data: {
+                labels: topProductLabels,
+                datasets: [{
+                    label: 'Số lượng bán',
+                    data: topProductData,
+                    borderWidth: 1,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

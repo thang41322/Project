@@ -1,0 +1,734 @@
+﻿@model IEnumerable<Doluuniem.Models.GioHang>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Giỏ Hàng";
+}
+
+<style>
+    :root {
+        --primary: #b76e3c;
+        --primary-dark: #8f5430;
+        --primary-soft: #fff6ef;
+        --secondary: #e8b07a;
+        --accent: #d94f4f;
+        --text: #2f2a26;
+        --muted: #7a6f66;
+        --border: #f1e3d5;
+        --shadow: 0 10px 28px rgba(0,0,0,0.08);
+        --success: #2e8b57;
+    }
+
+    .cart-page {
+        max-width: 1250px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #fff8f1, #ffffff);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        margin-bottom: 24px;
+    }
+
+    .page-title {
+        margin: 0 0 8px;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #3f2d20;
+    }
+
+    .page-subtitle {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+    }
+
+    .cart-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .card-box {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+
+    .card-header {
+        padding: 22px 24px;
+        border-bottom: 1px solid #f2e5d9;
+        background: #fffaf6;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #3f2d20;
+    }
+
+    .card-body {
+        padding: 24px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 24px;
+    }
+
+    .empty-icon {
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 16px;
+        border-radius: 50%;
+        background: #fff6ef;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+    }
+
+    .empty-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #3f2d20;
+        margin-bottom: 8px;
+    }
+
+    .empty-text {
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 18px;
+    }
+
+    .btn-shop-now {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: #fff;
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 14px;
+        font-weight: 800;
+        transition: 0.25s ease;
+    }
+
+    .btn-shop-now:hover {
+        color: #fff;
+        opacity: 0.96;
+        transform: translateY(-1px);
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 34px 96px 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid #f5ebe1;
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .cart-check {
+        text-align: center;
+    }
+
+    .cart-thumb img {
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 1px solid #f1e3d6;
+        background: #fffaf6;
+    }
+
+    .cart-info h4 {
+        margin: 0 0 8px;
+        font-size: 1.02rem;
+        font-weight: 800;
+        color: #3f2d20;
+        line-height: 1.5;
+    }
+
+    .cart-meta {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .cart-price {
+        color: var(--accent);
+        font-size: 1.05rem;
+        font-weight: 800;
+    }
+
+    .cart-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+        min-width: 180px;
+    }
+
+    .qty-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .qty-label {
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    .qty-input {
+        width: 70px;
+        padding: 10px 8px;
+        border: 1px solid #ead8c7;
+        border-radius: 12px;
+        text-align: center;
+        background: #fffdfb;
+        outline: none;
+        font-weight: 700;
+    }
+
+    .item-total {
+        font-weight: 800;
+        color: var(--text);
+    }
+
+    .remove-link {
+        color: #c0392b;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    .remove-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn-update {
+        border: none;
+        border-radius: 14px;
+        background: #fff7ed;
+        color: var(--primary);
+        border: 1px solid #efd7bf;
+        padding: 11px 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .btn-update:hover {
+        background: var(--primary-soft);
+    }
+
+    .summary-box {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .field-group {
+        margin-bottom: 16px;
+    }
+
+    .field-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        color: #4a3425;
+        margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-select,
+    textarea {
+        width: 100%;
+        border: 1px solid #e9d9c8;
+        border-radius: 14px;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: var(--text);
+        background: #fffdfb;
+        outline: none;
+        transition: 0.25s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus,
+    textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(183,110,60,0.08);
+    }
+
+    .delivery-options,
+    .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .option-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px;
+        border-radius: 16px;
+        background: #fffaf6;
+        border: 1px solid #efdfd0;
+    }
+
+    .option-box label {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.7;
+        cursor: pointer;
+    }
+
+    .option-box strong {
+        display: block;
+        color: #3f2d20;
+    }
+
+    .address-fields {
+        display: none;
+        margin-top: 12px;
+        padding: 14px;
+        background: #fffaf6;
+        border: 1px solid #efdfd0;
+        border-radius: 16px;
+    }
+
+    .checkbox-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #fffaf6;
+        border: 1px solid #efdfd0;
+    }
+
+    .checkbox-item label {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.7;
+        cursor: pointer;
+    }
+
+    .summary-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 8px;
+        border-top: 1px solid #f2e5d9;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 14px;
+        color: var(--text);
+    }
+
+    .summary-row.total {
+        font-size: 1.08rem;
+        font-weight: 800;
+        padding-top: 8px;
+    }
+
+    .summary-row.total span:last-child {
+        color: var(--accent);
+        font-size: 1.25rem;
+    }
+
+    .btn-checkout {
+        width: 100%;
+        border: none;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: #fff;
+        font-weight: 800;
+        font-size: 15px;
+        padding: 14px 18px;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .btn-checkout:hover {
+        opacity: 0.96;
+        transform: translateY(-1px);
+    }
+
+    .bottom-link {
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .bottom-link:hover {
+        color: var(--primary-dark);
+    }
+
+    @@media (max-width: 992px) {
+        .cart-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .page-header,
+        .card-body {
+            padding: 20px;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+        }
+
+        .cart-item {
+            grid-template-columns: 1fr;
+            align-items: start;
+        }
+
+        .cart-check {
+            text-align: left;
+        }
+
+        .cart-actions {
+            align-items: flex-start;
+            min-width: auto;
+        }
+    }
+</style>
+
+<div class="cart-page">
+    <div class="page-header">
+        <h1 class="page-title">Giỏ hàng của bạn</h1>
+        <p class="page-subtitle">
+            Kiểm tra lại những món quà bạn đã chọn, cập nhật số lượng và hoàn tất thông tin để đặt hàng.
+        </p>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="card-box">
+            <div class="empty-state">
+                <div class="empty-icon">🎁</div>
+                <div class="empty-title">Giỏ hàng đang trống</div>
+                <div class="empty-text">
+                    Bạn chưa thêm sản phẩm nào vào giỏ hàng. Hãy khám phá những món quà lưu niệm xinh xắn tại BETSHOP.
+                </div>
+                <a href="@Url.Action("SanPham", "Home")" class="btn-shop-now">
+                    Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        var dsGioHang = Model.ToList();
+        var tongTien = dsGioHang.Sum(x => (x.SanPham != null ? x.SanPham.DonGia : 0) * x.SoLuong);
+
+        <div class="cart-layout">
+            <!-- DANH SÁCH GIỎ HÀNG -->
+            <div class="card-box">
+                <div class="card-header">
+                    <h2 class="card-title">Sản phẩm đã chọn</h2>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="@Url.Action("CapNhatGioHang", "Home")" id="updateForm">
+                        <div style="margin-bottom:16px;">
+                            <label style="font-weight:700; color:#4a3425; cursor:pointer;">
+                                <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)" />
+                                Chọn tất cả sản phẩm
+                            </label>
+                        </div>
+
+                        @for (int i = 0; i < dsGioHang.Count; i++)
+                        {
+                            var item = dsGioHang[i];
+                            var thanhTien = (item.SanPham != null ? item.SanPham.DonGia : 0) * item.SoLuong;
+
+                            <div class="cart-item">
+                                <div class="cart-check">
+                                    <input type="checkbox" name="selectedItems" value="@item.MaSanPham" class="item-checkbox" />
+                                </div>
+
+                                <div class="cart-thumb">
+                                    <img src="@Url.Content("~/anh/anh/" + item.SanPham.HinhAnh)" alt="@item.SanPham.TenSanPham" />
+                                </div>
+
+                                <div class="cart-info">
+                                    <h4>@item.SanPham.TenSanPham</h4>
+                                    <div class="cart-meta">Quà tặng lưu niệm</div>
+                                    <div class="cart-price">@String.Format("{0:N0}", item.SanPham.DonGia)đ</div>
+                                </div>
+
+                                <div class="cart-actions">
+                                    <div class="qty-wrap">
+                                        <span class="qty-label">Số lượng</span>
+                                        <input type="hidden" name="gioHang[@i].MaSanPham" value="@item.MaSanPham" />
+                                        <input type="number" name="gioHang[@i].SoLuong" value="@item.SoLuong" min="1" class="qty-input" />
+                                    </div>
+
+                                    <div class="item-total">
+                                        @String.Format("{0:N0}", thanhTien)đ
+                                    </div>
+
+                                    <a class="remove-link" href="@Url.Action("XoaKhoiGioHang", "Home", new { maSanPham = item.MaSanPham })"
+                                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?');">
+                                        Xóa sản phẩm
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        <div style="margin-top:20px;">
+                            <button type="submit" class="btn-update">Cập nhật giỏ hàng</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- THANH TOÁN -->
+            <div class="card-box">
+                <div class="card-header">
+                    <h2 class="card-title">Thông tin thanh toán</h2>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="@Url.Action("ThanhToanGioHang", "Home")" id="checkoutForm" class="summary-box">
+                        <div class="field-group">
+                            <label class="field-label">Phương thức nhận hàng</label>
+                            <div class="delivery-options">
+                                <div class="option-box">
+                                    <input type="radio" name="DeliveryMethod" id="deliveryHome" value="home" checked onchange="toggleAddressFields()" />
+                                    <label for="deliveryHome">
+                                        <strong>Giao tận nơi</strong>
+                                        Giao hàng đến địa chỉ bạn cung cấp.
+                                    </label>
+                                </div>
+
+                                <div class="option-box">
+                                    <input type="radio" name="DeliveryMethod" id="deliveryStore" value="store" onchange="toggleAddressFields()" />
+                                    <label for="deliveryStore">
+                                        <strong>Nhận tại cửa hàng</strong>
+                                        Đến shop để nhận sản phẩm trực tiếp.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="address-fields" id="addressFields">
+                            <div class="field-group">
+                                <label class="field-label">Địa chỉ chi tiết</label>
+                                <input type="text" name="DiaChi" class="form-control" placeholder="Số nhà, tên đường..." value="@ViewBag.DefaultDiaChi" />
+                            </div>
+
+                            <div class="field-group">
+                                <label class="field-label">Tỉnh / Thành phố</label>
+                                <input type="text" name="TinhThanh" class="form-control" placeholder="Ví dụ: TP Hồ Chí Minh" />
+                            </div>
+
+                            <div class="field-group">
+                                <label class="field-label">Quận / Huyện</label>
+                                <input type="text" name="QuanHuyen" class="form-control" placeholder="Ví dụ: Quận 1" />
+                            </div>
+
+                            <div class="field-group">
+                                <label class="field-label">Số điện thoại</label>
+                                <input type="tel" name="SoDienThoai" class="form-control" placeholder="Ví dụ: 0901234567" pattern="[0-9]{10}" value="@ViewBag.DefaultSoDienThoai" />
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Phương thức thanh toán</label>
+                            <div class="payment-options">
+                                <div class="option-box">
+                                    <input type="radio" name="PaymentMethod" id="payCod" value="COD" checked />
+                                    <label for="payCod">
+                                        <strong>Thanh toán khi nhận hàng</strong>
+                                        Thanh toán trực tiếp khi nhận sản phẩm.
+                                    </label>
+                                </div>
+
+                                <div class="option-box">
+                                    <input type="radio" name="PaymentMethod" id="payBank" value="BankTransfer" />
+                                    <label for="payBank">
+                                        <strong>Chuyển khoản ngân hàng</strong>
+                                        Thanh toán trước qua tài khoản ngân hàng.
+                                    </label>
+                                </div>
+
+                                <div class="option-box">
+                                    <input type="radio" name="PaymentMethod" id="payCard" value="Card" />
+                                    <label for="payCard">
+                                        <strong>Thẻ tín dụng / ghi nợ</strong>
+                                        Thanh toán bằng thẻ nếu hệ thống hỗ trợ.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Mã giảm giá</label>
+                            <input type="text" name="MaGiamGia" class="form-control" placeholder="Nhập mã giảm giá nếu có" />
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Tùy chọn thêm</label>
+                            <div class="checkbox-list">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="GoiQua" id="GoiQua" value="true" />
+                                    <label for="GoiQua">Gói quà giúp tôi để món quà đẹp và chỉn chu hơn.</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="VietThiep" id="VietThiep" value="true" />
+                                    <label for="VietThiep">Thêm thiệp chúc mừng kèm theo đơn hàng.</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="HoaDonCongTy" id="HoaDonCongTy" value="true" />
+                                    <label for="HoaDonCongTy">Xuất hóa đơn cho đơn hàng này.</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="YeuCauKhac" id="yeuCauKhac" onchange="toggleYeuCauKhacText()" />
+                                    <label for="yeuCauKhac">Tôi có yêu cầu thêm cho đơn hàng.</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <textarea name="YeuCauKhacText" id="yeuCauKhacText" placeholder="Ví dụ: Giao giờ hành chính, gói quà tông màu be, viết thiệp ngắn..." style="display:none;"></textarea>
+                        </div>
+
+                        <div class="summary-list">
+                            <div class="summary-row">
+                                <span>Tạm tính</span>
+                                <span>@String.Format("{0:N0}", tongTien)đ</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Phí giao hàng</span>
+                                <span>Miễn phí</span>
+                            </div>
+
+                            <div class="summary-row total">
+                                <span>Tổng thanh toán</span>
+                                <span>@String.Format("{0:N0}", tongTien)đ</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-checkout" onclick="return validateCheckout()">
+                            Tiến hành thanh toán
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <a href="@Url.Action("SanPham", "Home")" class="bottom-link">
+            ← Tiếp tục mua sắm
+        </a>
+    }
+</div>
+
+<script>
+    function toggleSelectAll(source) {
+        var checkboxes = document.querySelectorAll('.item-checkbox');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = source.checked;
+        });
+    }
+
+    function toggleYeuCauKhacText() {
+        var yeuCauKhac = document.getElementById('yeuCauKhac');
+        var yeuCauKhacText = document.getElementById('yeuCauKhacText');
+        yeuCauKhacText.style.display = yeuCauKhac.checked ? 'block' : 'block';
+        if (!yeuCauKhac.checked) {
+            yeuCauKhacText.style.display = 'none';
+            yeuCauKhacText.value = '';
+        }
+    }
+
+    function toggleAddressFields() {
+        var giaoTanNoi = document.getElementById('deliveryHome').checked;
+        var addressFields = document.getElementById('addressFields');
+        addressFields.style.display = giaoTanNoi ? 'block' : 'none';
+    }
+
+    function validateCheckout() {
+        var checkboxes = document.querySelectorAll('.item-checkbox:checked');
+        if (checkboxes.length === 0) {
+            alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán.");
+            return false;
+        }
+
+        var giaoTanNoi = document.getElementById('deliveryHome').checked;
+        if (giaoTanNoi) {
+            var diaChi = document.getElementsByName('DiaChi')[0].value.trim();
+            var tinhThanh = document.getElementsByName('TinhThanh')[0].value.trim();
+            var quanHuyen = document.getElementsByName('QuanHuyen')[0].value.trim();
+            var soDienThoai = document.getElementsByName('SoDienThoai')[0].value.trim();
+
+            if (!diaChi || !tinhThanh || !quanHuyen || !soDienThoai) {
+                alert("Vui lòng nhập đầy đủ thông tin giao hàng.");
+                return false;
+            }
+
+            if (!/^[0-9]{10}$/.test(soDienThoai)) {
+                alert("Số điện thoại phải gồm 10 chữ số.");
+                return false;
+            }
+        }
+
+        var checkoutForm = document.getElementById('checkoutForm');
+        checkoutForm.querySelectorAll('input[name="SelectedItems"]').forEach(function (item) {
+            item.remove();
+        });
+
+        checkboxes.forEach(function (checkbox) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'SelectedItems';
+            input.value = checkbox.value;
+            checkoutForm.appendChild(input);
+        });
+
+        return true;
+    }
+
+    window.onload = function () {
+        toggleAddressFields();
+    };
+</script>

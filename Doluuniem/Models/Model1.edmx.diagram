@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18f8209945d04e6ab45b51f43499fe93" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="TR90Model.ChiTietDonHang" Width="1.5" PointX="6.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.DanhGia" Width="1.5" PointX="6.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.DonHang" Width="1.5" PointX="8.375" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.GioHang" Width="1.5" PointX="4.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.LoaiSanPham" Width="1.5" PointX="0.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.NguoiDung" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.SanPham" Width="1.5" PointX="2.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.Slide" Width="1.5" PointX="4.375" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TR90Model.ThanhToan" Width="1.5" PointX="4.5" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="TR90Model.FK__ChiTietDo__MaDon__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__ChiTietDo__MaSan__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__DanhGia__MaNguoi__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__DanhGia__MaSanPh__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__DonHang__MaNguoi__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__ThanhToan__MaDon__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__GioHang__MaNguoi__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__GioHang__MaSanPh__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="TR90Model.FK__SanPham__MaLoaiS__4E88ABD4" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TR90Model.ChiTietSanPham" Width="1.5" PointX="2.5" PointY="1" />
+        <AssociationConnector Association="TR90Model.FK_CTSP_SanPham" />
+        <EntityTypeShape EntityType="TR90Model.sysdiagrams" Width="1.5" PointX="7.875" PointY="1.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

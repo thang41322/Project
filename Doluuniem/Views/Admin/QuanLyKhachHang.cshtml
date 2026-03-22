@@ -1,0 +1,348 @@
+﻿@model IEnumerable<Doluuniem.Models.NguoiDung>
+
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fff8f3;
+        color: #333;
+    }
+
+    .customer-page {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #fff3e8, #ffffff);
+        border: 1px solid #f3d2b8;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+        .page-header h2 {
+            margin: 0 0 8px;
+            color: #d35400;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #7a5c47;
+            font-size: 14px;
+        }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+    }
+
+    .top-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .search-box input {
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #e7cdb8;
+        outline: none;
+        min-width: 240px;
+        background: #fff;
+    }
+
+        .search-box input:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.12);
+        }
+
+    .btn-add {
+        display: inline-block;
+        background: #e67e22;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+        .btn-add:hover {
+            background: #d35400;
+        }
+
+    .table-box {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border: 1px solid #f1dfd2;
+    }
+
+    .table-title {
+        padding: 16px 20px;
+        background: #fff7f1;
+        border-bottom: 1px solid #f3e1d5;
+        font-weight: bold;
+        color: #c96a16;
+        font-size: 16px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #e67e22;
+        color: white;
+        padding: 13px 10px;
+        text-align: center;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 12px 10px;
+        text-align: center;
+        border-bottom: 1px solid #f3f3f3;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    tr:hover {
+        background: #fffaf6;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 5px 11px;
+        border-radius: 999px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        min-width: 72px;
+    }
+
+    .admin {
+        background: #c0392b;
+    }
+
+    .user {
+        background: #27ae60;
+    }
+
+    .status-active {
+        color: #27ae60;
+        font-weight: bold;
+    }
+
+    .status-lock {
+        color: #e74c3c;
+        font-weight: bold;
+    }
+
+    .action-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .inline-form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    .btn {
+        border: none;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        margin: 0;
+        min-width: 42px;
+        transition: 0.2s ease;
+    }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+    .btn-delete {
+        background: #e74c3c;
+    }
+
+    .btn-lock {
+        background: #f39c12;
+    }
+
+    .btn-unlock {
+        background: #2ecc71;
+    }
+
+    .empty-box {
+        padding: 30px 20px;
+        text-align: center;
+        color: #888;
+        font-size: 15px;
+    }
+
+    @@media (max-width: 992px) {
+        .table-box {
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 1000px;
+        }
+    }
+</style>
+
+<div class="customer-page">
+
+    <div class="page-header">
+        <h2><i class="fa fa-users"></i> Quản lý khách hàng</h2>
+        <p>Theo dõi danh sách tài khoản, phân quyền và trạng thái hoạt động của người dùng.</p>
+    </div>
+
+    <div class="top-bar">
+        <div></div>
+
+        <div class="top-actions">
+            <form method="get" class="search-box">
+                <input type="text" name="keyword" value="@Request["keyword"]" placeholder="Tìm kiếm khách hàng..." />
+            </form>
+
+            <a href="@Url.Action("ThemKhachHang", "Admin")" class="btn-add">
+                <i class="fa fa-plus"></i> Thêm khách hàng
+            </a>
+        </div>
+    </div>
+
+    <div class="table-box">
+        <div class="table-title">
+            Danh sách khách hàng
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+
+                @foreach (var kh in Model)
+                {
+                    <tr>
+                        <td>@kh.MaNguoiDung</td>
+                        <td>@kh.HoTen</td>
+                        <td>@kh.Email</td>
+                        <td>@kh.SoDienThoai</td>
+                        <td>@kh.DiaChi</td>
+
+                        <td>
+                            @if (kh.VaiTro == "Admin")
+                            {
+                                <span class="badge admin">Admin</span>
+                            }
+                            else
+                            {
+                                <span class="badge user">User</span>
+                            }
+                        </td>
+
+                        <td>
+                            @if (kh.TrangThai == true)
+                            {
+                                <span class="status-active">● Hoạt động</span>
+                            }
+                            else
+                            {
+                                <span class="status-lock">● Bị khóa</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="action-group">
+                                @using (Html.BeginForm("XoaKhachHang", "Admin", FormMethod.Post, new { @class = "inline-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", kh.MaNguoiDung)
+
+                                    <button type="submit" class="btn btn-delete"
+                                            onclick="return confirm('Bạn có chắc muốn xóa khách hàng này?')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+
+                                @if (kh.TrangThai == true)
+                                {
+                                    using (Html.BeginForm("KhoaKhachHang", "Admin", FormMethod.Post, new { @class = "inline-form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", kh.MaNguoiDung)
+
+                                        <button type="submit" class="btn btn-lock"
+                                                onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
+                                            <i class="fa fa-lock"></i>
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("MoKhoaKhachHang", "Admin", FormMethod.Post, new { @class = "inline-form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", kh.MaNguoiDung)
+
+                                        <button type="submit" class="btn btn-unlock"
+                                                onclick="return confirm('Mở khóa tài khoản này?')">
+                                            <i class="fa fa-lock-open"></i>
+                                        </button>
+                                    }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div class="empty-box">
+                Chưa có khách hàng nào.
+            </div>
+        }
+    </div>
+
+</div>

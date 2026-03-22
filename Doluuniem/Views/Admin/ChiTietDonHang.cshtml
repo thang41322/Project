@@ -1,0 +1,186 @@
+﻿@model Doluuniem.Models.ChiTietDonHangViewModel
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+}
+
+<style>
+    body {
+        background: #f9f9f9;
+        font-family: Arial;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 40px auto;
+    }
+
+    h2 {
+        color: #d35400;
+        margin-bottom: 20px;
+    }
+
+    .info-box {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .info-row {
+        margin-bottom: 8px;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .price {
+        color: #e74c3c;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* trạng thái */
+    .status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        color: white;
+        font-size: 13px;
+    }
+
+    .pending {
+        background: #f39c12;
+    }
+
+    .done {
+        background: #2ecc71;
+    }
+
+    .confirm {
+        background: #3498db;
+    }
+
+    /* bảng */
+    table {
+        width: 100%;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #e67e22;
+        color: white;
+        padding: 12px;
+    }
+
+    td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+        background: #fff5ec;
+    }
+
+    .total-row {
+        background: #fdf2e9;
+        font-weight: bold;
+    }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: 20px;
+        background: #bdc3c7;
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
+<div class="container">
+
+    <h2>🧾 Chi tiết đơn hàng #@Model.DonHang.MaDonHang</h2>
+
+    <!-- THÔNG TIN ĐƠN -->
+    <div class="info-box">
+        <div class="info-row">
+            <span class="label">👤 Khách hàng:</span>
+            @Model.DonHang.NguoiDung.HoTen
+        </div>
+
+        <div class="info-row">
+            <span class="label">📅 Ngày đặt:</span>
+            @(Model.DonHang.NgayDat != null
+                ? Model.DonHang.NgayDat.Value.ToString("dd/MM/yyyy")
+                : "Chưa có")
+        </div>
+
+        <div class="info-row">
+            <span class="label">💰 Tổng tiền:</span>
+            <span class="price">
+                @string.Format("{0:N0} đ", Model.DonHang.TongTien)
+            </span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">📦 Trạng thái:</span>
+
+            @if (Model.DonHang.TrangThai == "Chờ xử lý")
+            {
+                <span class="status pending">Chờ xử lý</span>
+            }
+            else if (Model.DonHang.TrangThai == "Đã giao")
+            {
+                <span class="status done">Đã giao</span>
+            }
+            else
+            {
+                <span class="status confirm">Đã xác nhận</span>
+            }
+        </div>
+    </div>
+
+    <!-- BẢNG SẢN PHẨM -->
+    <table>
+        <thead>
+            <tr>
+                <th>🎁 Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.ChiTietDonHangs)
+            {
+                <tr>
+                    <td>@item.SanPham.TenSanPham</td>
+                    <td>@item.SoLuong</td>
+                    <td>@string.Format("{0:N0} đ", item.DonGia)</td>
+                    <td>@string.Format("{0:N0} đ", item.SoLuong * item.DonGia)</td>
+                </tr>
+            }
+
+            <!-- TỔNG -->
+            <tr class="total-row">
+                <td colspan="3">Tổng cộng</td>
+                <td>@string.Format("{0:N0} đ", Model.DonHang.TongTien)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("DonHang", "Home")" class="btn-back">
+        ⬅️ Quay lại đơn hàng
+    </a>
+
+</div>

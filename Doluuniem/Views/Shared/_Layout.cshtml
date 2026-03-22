@@ -1,0 +1,742 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BETSHOP</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --primary: #b76e3c;
+            --primary-dark: #8f5430;
+            --primary-soft: #fff6ef;
+            --secondary: #e8b07a;
+            --accent: #d94f4f;
+            --text: #2f2a26;
+            --muted: #7a6f66;
+            --bg: #fffaf6;
+            --white: #ffffff;
+            --border: #f1e3d5;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --radius: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom, #fffaf6, #fffdfb);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+        .topbar {
+            background: linear-gradient(90deg, #fff4ea, #fffaf5);
+            color: var(--muted);
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar .container-fluid {
+            padding: 8px 28px;
+        }
+
+        .topbar .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #f4e8dc;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+        }
+
+        .header-inner {
+            padding: 14px 28px;
+            display: grid;
+            grid-template-columns: 220px 1fr auto;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--text);
+        }
+
+        .navbar-custom {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .navbar-custom > a,
+        .dropdown-toggle-link {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 12px;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-custom > a:hover,
+        .dropdown-toggle-link:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            min-width: 220px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 8px;
+            z-index: 1200;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            color: var(--text);
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: 0.25s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-icon-link {
+            color: var(--text);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 600;
+            transition: 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon-link:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        .account-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-account {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: #fff;
+            transition: 0.25s ease;
+        }
+
+        .btn-account:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        .btn-account.primary {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .btn-account.primary:hover {
+            color: #fff;
+            opacity: 0.95;
+        }
+
+        .cart-dropdown {
+            position: relative;
+        }
+
+        .cart-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            width: 300px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 14px;
+            z-index: 1200;
+        }
+
+        .cart-dropdown:hover .cart-content {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .cart-item img {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* LAYOUT */
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 290px;
+            background: linear-gradient(180deg, #fff8f2, #fff);
+            border-right: 1px solid var(--border);
+            padding: 24px 18px;
+            position: sticky;
+            top: 88px;
+            height: calc(100vh - 88px);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-section {
+            background: #fff;
+            border: 1px solid #f4e6d8;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #4a3425;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-search-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sidebar-search-form input {
+            flex: 1;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+            outline: none;
+            font-size: 14px;
+            background: #fffdfb;
+        }
+
+        .sidebar-search-form button {
+            border: none;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #fff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+        }
+
+        .filter-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .filter-list li + li {
+            margin-top: 10px;
+        }
+
+        .filter-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+            background: #fffaf6;
+            border: 1px solid #f3e4d4;
+            padding: 11px 14px;
+            border-radius: 12px;
+            transition: 0.25s ease;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .filter-list a:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+            transform: translateX(2px);
+        }
+
+        .price-filter-form .form-check {
+            padding: 10px 12px;
+            background: #fffaf6;
+            border: 1px solid #f2e2d3;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .price-filter-form label {
+            margin-left: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 11px 14px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transition: 0.25s ease;
+        }
+
+        .sidebar-btn:hover {
+            opacity: 0.95;
+        }
+
+        .sidebar-note {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 96px;
+            left: 16px;
+            z-index: 1300;
+            border: none;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            min-width: 0;
+        }
+
+        .body-content {
+            background: transparent;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            margin-top: 40px;
+            background: linear-gradient(180deg, #3a2b21, #2d2119);
+            color: #f7e8d9;
+            border-radius: 28px 28px 0 0;
+            overflow: hidden;
+        }
+
+        .site-footer .container {
+            padding: 40px 24px 24px;
+        }
+
+        .site-footer h5,
+        .site-footer h6 {
+            font-weight: 800;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+
+        .site-footer p,
+        .site-footer li,
+        .site-footer a {
+            color: #e8d5c2;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .site-footer a:hover {
+            color: #ffd7a8 !important;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.14);
+        }
+
+        .newsletter-input .form-control {
+            border-radius: 12px 0 0 12px;
+            border: none;
+            padding: 12px;
+        }
+
+        .newsletter-input .btn {
+            border-radius: 0 12px 12px 0;
+            font-weight: 700;
+            background: #d7a56d;
+            border: none;
+            color: #fff;
+        }
+
+        .newsletter-input .btn:hover {
+            background: var(--primary);
+        }
+
+        /* RESPONSIVE */
+        @@media (max-width: 1200px) {
+            .header-inner {
+                grid-template-columns: 200px 1fr;
+            }
+
+            .actions {
+                grid-column: 1 / -1;
+                justify-content: flex-start;
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .content-wrapper {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 88px;
+                left: 0;
+                width: 300px;
+                max-width: 85%;
+                height: calc(100vh - 88px);
+                z-index: 1250;
+                transform: translateX(-100%);
+                box-shadow: 0 20px 35px rgba(0,0,0,0.12);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .header-inner {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .navbar-custom {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 4px;
+            }
+
+            .navbar-custom::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .main-content {
+                padding: 18px;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .topbar .container-fluid,
+            .header-inner {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .actions {
+                gap: 8px;
+            }
+
+            .header-icon-link,
+            .btn-account {
+                font-size: 13px;
+                padding: 9px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="container-fluid">
+            <div class="topbar-inner">
+                <div>
+                    <i class="bi bi-gift-fill me-1"></i> Quà tặng lưu niệm xinh xắn cho mọi dịp đặc biệt
+                </div>
+                <div>
+                    <i class="bi bi-truck me-1"></i> Freeship đơn từ 299K
+                    <span class="mx-2">|</span>
+                    <i class="bi bi-patch-check-fill me-1"></i> Gói quà đẹp mắt
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                BET<span>SHOP</span>
+            </div>
+
+            <nav class="navbar-custom">
+                <a href="@Url.Action("Index", "Home")"><i class="bi bi-house-door-fill"></i> Trang chủ</a>
+                <a href="@Url.Action("GioiThieu", "Home")"><i class="bi bi-info-circle-fill"></i> Giới thiệu</a>
+
+                <div class="dropdown">
+                    <a href="@Url.Action("SanPham", "Home")" class="dropdown-toggle-link">
+                        <i class="bi bi-box-seam"></i> Sản phẩm
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="@Url.Action("SanPham", "Home", new { loai = "quatang" })">Quà tặng</a>
+                        <a href="@Url.Action("SanPham", "Home", new { loai = "gau" })">Gấu bông</a>
+                        <a href="@Url.Action("SanPham", "Home", new { loai = "trangtri" })">Trang trí</a>
+                        <a href="@Url.Action("SanPham", "Home", new { loai = "handmade" })">Handmade</a>
+                        <a href="@Url.Action("SanPham", "Home", new { loai = "phukien" })">Phụ kiện</a>
+                    </div>
+                </div>
+
+                <a href="@Url.Action("TinTuc", "Home")"><i class="bi bi-newspaper"></i> Tin tức</a>
+                <a href="@Url.Action("LienHe", "Home")"><i class="bi bi-envelope-fill"></i> Liên hệ</a>
+            </nav>
+
+            <div class="actions">
+                <a class="header-icon-link" href="@Url.Action("LichSuDonHang", "Home")">
+                    <i class="bi bi-receipt"></i> Đơn hàng
+                </a>
+
+                <div class="cart-dropdown">
+                    <a class="header-icon-link" href="@Url.Action("GioHang", "Home")">
+                        <i class="bi bi-cart-fill"></i> Giỏ hàng
+                    </a>
+                    <div id="gioHangContent" class="cart-content">
+                    </div>
+                </div>
+
+                @if (Session["TenDangNhap"] != null)
+                {
+                    <div class="account-links">
+                        <a class="btn-account" href="@Url.Action("ThongTinKhachHang", "Home")">
+                            <i class="bi bi-person-circle me-1"></i> @Session["TenDangNhap"]
+                        </a>
+                        <a class="btn-account" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="account-links">
+                        <a class="btn-account" href="@Url.Action("DangKy", "Home")">Đăng ký</a>
+                        <a class="btn-account primary" href="@Url.Action("DangNhap", "Home")">Đăng nhập</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i> Bộ lọc
+    </button>
+
+    <div class="content-wrapper">
+       
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="container-fluid body-content">
+                @RenderBody()
+
+                <footer class="site-footer">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-lg-3">
+                                <h5>BETSHOP</h5>
+                                <p>
+                                    BETSHOP mang đến những món quà lưu niệm, đồ handmade và phụ kiện trang trí
+                                    giúp bạn lưu giữ khoảnh khắc đẹp và trao gửi yêu thương.
+                                </p>
+                                <p class="mb-0">© @DateTime.Now.Year - BETSHOP. All rights reserved.</p>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3">
+                                <h5>Liên kết nhanh</h5>
+                                <ul class="list-unstyled">
+                                    <li><a href="@Url.Action("Trangchu", "Home")">Trang chủ</a></li>
+                                    <li><a href="@Url.Action("SanPham", "Home")">Sản phẩm</a></li>
+                                    <li><a href="@Url.Action("GioHang", "Home")">Giỏ hàng</a></li>
+                                    <li><a href="@Url.Action("LienHe", "Home")">Liên hệ</a></li>
+                                    <li><a href="@Url.Action("ChinhSach", "Home")">Chính sách</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3">
+                                <h5>Liên hệ</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                                    <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i> <a href="tel:+84234567890">+84 234 567 890</a></li>
+                                    <li class="mb-2"><i class="bi bi-envelope-fill me-2"></i> <a href="mailto:support@betshop.vn">support@betshop.vn</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-12 col-lg-3">
+                                <h5>Kết nối với chúng tôi</h5>
+                                <div class="d-flex gap-2 mb-3 social-links">
+                                    <a href="https://facebook.com" target="_blank" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
+                                    <a href="https://instagram.com" target="_blank" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
+                                    <a href="https://tiktok.com" target="_blank" class="text-white"><i class="bi bi-tiktok fs-5"></i></a>
+                                    <a href="https://youtube.com" target="_blank" class="text-white"><i class="bi bi-youtube fs-5"></i></a>
+                                </div>
+
+                                <h6>Đăng ký nhận tin</h6>
+                                <form action="@Url.Action("DangKyNhanTin", "Home")" method="post">
+                                    <div class="input-group newsletter-input">
+                                        <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
+                                        <button class="btn" type="submit">Đăng ký</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" style="border-color: rgba(255,255,255,0.12);" />
+
+                        <div class="text-center">
+                            <p class="mb-0">Designed with <i class="bi bi-heart-fill text-danger"></i> for souvenir lovers</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#gioHangBtn").click(function (e) {
+                e.preventDefault();
+                $("#gioHangContent").toggle();
+                $("#gioHangContent").load("/Home/LayGioHang");
+            });
+
+            $(".add-to-cart").click(function () {
+                var maSanPham = $(this).data("id");
+                $.post("/Home/ThemVaoGioHang", { maSanPham: maSanPham }, function (res) {
+                    alert(res.message);
+                    if (res.success) {
+                        $("#gioHangContent").load("/Home/LayGioHang");
+                    }
+                });
+            });
+        });
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model Doluuniem.Models.NguoiDung
+@{
+    ViewBag.Title = "Chỉnh Sửa Thông Tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .edit-form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .form-title {
+        font-size: 26px;
+        font-weight: bold;
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="date"],
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .avatar-preview {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .avatar-preview img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+        }
+
+    .form-actions {
+        text-align: center;
+    }
+</style>
+
+<div class="edit-form-container">
+    <div class="form-title">Chỉnh Sửa Thông Tin</div>
+
+    @using (Html.BeginForm("ChinhSuaThongTin", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.MaNguoiDung)
+
+        <div class="avatar-preview">
+            <img src="@Url.Content("~/anh/avata/" + Model.Avatar)" alt="Avatar hiện tại" />
+        </div>
+
+        <div class="form-group">
+            <label>Họ tên</label>
+            @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+        </div>
+
+       
+
+        <div class="form-group">
+            <label>Số điện thoại</label>
+            @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh đại diện (chọn ảnh mới nếu muốn đổi)</label>
+            <input type="file" name="AvatarFile" accept="image/*" />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            <a href="@Url.Action("ThongTinKhachHang", "Home")" class="btn btn-secondary ms-2">Hủy</a>
+
+        </div>
+    }
+</div>

@@ -1,0 +1,570 @@
+﻿@model Doluuniem.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    :root {
+        --primary: #b76e3c;
+        --primary-dark: #8f5430;
+        --primary-soft: #fff6ef;
+        --secondary: #e8b07a;
+        --accent: #d94f4f;
+        --text: #2f2a26;
+        --muted: #7a6f66;
+        --border: #f1e3d5;
+        --shadow: 0 10px 28px rgba(0,0,0,0.08);
+        --radius: 20px;
+    }
+
+    .detail-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px 0 30px;
+    }
+
+    .breadcrumb-box {
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+        .breadcrumb-box a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+    .product-detail-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: 28px;
+        margin-bottom: 28px;
+    }
+
+    .product-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 32px;
+        align-items: start;
+    }
+
+    .product-gallery {
+        background: linear-gradient(180deg, #fffaf5, #fff);
+        border: 1px solid #f6e7d7;
+        border-radius: 24px;
+        padding: 20px;
+    }
+
+    .product-main-image {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+    }
+
+    .product-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff2e7;
+        color: var(--primary);
+        border: 1px solid #f1dbc8;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .product-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #3b2b20;
+        line-height: 1.35;
+        margin-bottom: 14px;
+    }
+
+    .product-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .meta-item {
+        background: #fff8f2;
+        border: 1px solid #f3e2d0;
+        color: var(--muted);
+        border-radius: 12px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .price-box {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .price {
+        color: var(--accent);
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #9b8f86;
+        font-size: 1rem;
+    }
+
+    .product-short-desc {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 22px;
+    }
+
+    .section-label {
+        font-size: 15px;
+        font-weight: 800;
+        color: #443126;
+        margin-bottom: 10px;
+    }
+
+    .option-group {
+        margin-bottom: 20px;
+    }
+
+    .option-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .option-btn {
+        padding: 10px 16px;
+        border: 1px solid #ecd9c5;
+        background: #fffaf6;
+        color: var(--text);
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.25s ease;
+    }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        .option-btn.active {
+            border: 1px solid var(--primary);
+            color: #fff;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+    .quantity-box {
+        margin-bottom: 24px;
+    }
+
+    .quantity-control {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #ecd9c5;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fffaf6;
+    }
+
+        .quantity-control button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+            .quantity-control button:hover {
+                background: #f8ebde;
+            }
+
+        .quantity-control input {
+            width: 55px;
+            height: 42px;
+            border: none;
+            text-align: center;
+            background: transparent;
+            font-weight: 700;
+            outline: none;
+            color: var(--text);
+        }
+
+    .action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .btn-add-cart,
+    .btn-buy-now {
+        height: 48px;
+        padding: 0 22px;
+        border: none;
+        border-radius: 14px;
+        font-weight: 800;
+        transition: 0.25s ease;
+    }
+
+    .btn-add-cart {
+        background: #fff4e8;
+        color: var(--primary);
+        border: 1px solid #efd7bf;
+    }
+
+        .btn-add-cart:hover {
+            background: #f8e4d1;
+        }
+
+    .btn-buy-now {
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: #fff;
+        min-width: 180px;
+    }
+
+        .btn-buy-now:hover {
+            opacity: 0.96;
+            transform: translateY(-1px);
+        }
+
+    .extra-note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: #fff9f3;
+        color: var(--muted);
+        border: 1px solid #f1e3d4;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .content-section {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+
+    .content-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #3f2d20;
+        margin-bottom: 14px;
+    }
+
+    .description-text {
+        color: var(--muted);
+        line-height: 1.9;
+        margin: 0;
+        white-space: pre-line;
+    }
+
+    .review-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .review-item {
+        padding: 16px 18px;
+        border: 1px solid #f2e3d4;
+        border-radius: 16px;
+        background: #fffaf6;
+    }
+
+    .review-user {
+        font-weight: 800;
+        color: #3f2d20;
+        margin-bottom: 6px;
+    }
+
+    .review-text {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+    }
+
+    .empty-review {
+        color: var(--muted);
+        background: #fffaf6;
+        border: 1px dashed #ecd9c6;
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 0;
+    }
+
+    .review-form textarea {
+        width: 100%;
+        min-height: 120px;
+        border: 1px solid #ead8c5;
+        border-radius: 16px;
+        padding: 14px;
+        outline: none;
+        resize: vertical;
+        background: #fffdfb;
+        margin-top: 10px;
+        margin-bottom: 12px;
+    }
+
+        .review-form textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(183,110,60,0.08);
+        }
+
+    .btn-review {
+        border: none;
+        border-radius: 12px;
+        padding: 11px 20px;
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: #fff;
+        font-weight: 700;
+    }
+
+    @@media (max-width: 992px) {
+        .product-detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .product-main-image {
+            height: 380px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .product-detail-card,
+        .content-section {
+            padding: 18px;
+            border-radius: 18px;
+        }
+
+        .product-title {
+            font-size: 1.55rem;
+        }
+
+        .price {
+            font-size: 1.6rem;
+        }
+
+        .product-main-image {
+            height: 300px;
+        }
+    }
+</style>
+
+<div class="detail-page">
+    <div class="breadcrumb-box">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <span> / </span>
+        <a href="@Url.Action("SanPham", "Home")">Sản phẩm</a>
+        <span> / </span>
+        <span>@Model.TenSanPham</span>
+    </div>
+
+    <div class="product-detail-card">
+        <div class="product-detail-grid">
+            <!-- ẢNH -->
+            <div class="product-gallery">
+                <img class="product-main-image" src="@Url.Content("~/anh/anh/" + Model.HinhAnh)" alt="@Model.TenSanPham" />
+            </div>
+
+            <!-- THÔNG TIN -->
+            <div class="product-info">
+                <div class="product-badge">
+                    <i class="bi bi-gift-fill"></i> Quà tặng lưu niệm
+                </div>
+
+                <h1 class="product-title">@Model.TenSanPham</h1>
+
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-box-seam me-1"></i> Còn lại: @Model.SoLuongTon sản phẩm
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-patch-check me-1"></i> Hàng chọn lọc
+                    </div>
+                </div>
+
+                <div class="price-box">
+                    <span class="price">@String.Format("{0:N0}", Model.DonGia) ₫</span>
+                    <span class="old-price">@String.Format("{0:N0}", Model.DonGia + 10000) ₫</span>
+                </div>
+
+                <p class="product-short-desc">
+                    @(string.IsNullOrWhiteSpace(Model.MoTa) ? "Sản phẩm quà tặng lưu niệm xinh xắn, phù hợp để trao gửi yêu thương trong những dịp đặc biệt." : Model.MoTa)
+                </p>
+
+                <!-- PHÂN LOẠI -->
+                <div class="option-group">
+                    <div class="section-label">Phân loại</div>
+
+                    <div class="option-list">
+                        @if (Model.ChiTietSanPham != null && Model.ChiTietSanPham.Any())
+                        {
+                            foreach (var ct in Model.ChiTietSanPham)
+                            {
+                                <button type="button" class="option-btn" onclick="chonMau(this, @ct.MaChiTietSanPham)">
+                                    @ct.MauSac
+                                </button>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa có phân loại</span>
+                        }
+                    </div>
+                </div>
+
+                <!-- SỐ LƯỢNG -->
+                <div class="quantity-box">
+                    <div class="section-label">Số lượng</div>
+                    <div class="quantity-control">
+                        <button type="button" onclick="giam()">-</button>
+                        <input id="qty" value="1" readonly />
+                        <button type="button" onclick="tang()">+</button>
+                    </div>
+                </div>
+
+                <!-- ACTION -->
+                <div class="action-buttons">
+                    @using (Html.BeginForm("ThemVaoGioHang", "Home", FormMethod.Post, new { id = "formAddToCart" }))
+                    {
+                        <input type="hidden" name="maSanPham" value="@Model.MaSanPham" />
+                        <input type="hidden" id="maChiTiet" name="maChiTiet" />
+                        <input type="hidden" id="soLuongCart" name="soLuong" value="1" />
+
+                        <button type="submit" class="btn-add-cart">
+                            <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                        </button>
+                    }
+
+                    @using (Html.BeginForm("MuaHang", "Home", FormMethod.Get, new { id = "formBuyNow" }))
+                    {
+                        <input type="hidden" name="id" value="@Model.MaSanPham" />
+                        <input type="hidden" id="soLuongBuy" name="soLuong" value="1" />
+                        <button type="submit" class="btn-buy-now">
+                            <i class="bi bi-bag-heart me-1"></i> Mua ngay
+                        </button>
+                    }
+                </div>
+
+                <div class="extra-note">
+                    <i class="bi bi-box2-heart me-1"></i>
+                    Sản phẩm phù hợp làm quà tặng sinh nhật, quà lưu niệm, quà handmade hoặc trang trí góc học tập, bàn làm việc.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÔ TẢ -->
+    <div class="content-section">
+        <h3 class="content-title">Mô tả sản phẩm</h3>
+        <p class="description-text">@Model.MoTa</p>
+    </div>
+
+    <!-- ĐÁNH GIÁ -->
+    <div class="content-section">
+        <h3 class="content-title">Đánh giá từ khách hàng</h3>
+
+        @if (Model.DanhGia != null && Model.DanhGia.Any())
+        {
+            <div class="review-list">
+                @foreach (var dg in Model.DanhGia)
+                {
+                    <div class="review-item">
+                        <div class="review-user">
+                            <i class="bi bi-person-circle me-1"></i>
+                            @dg.NguoiDung.TenDangNhap
+                        </div>
+                        <p class="review-text">@dg.BinhLuan</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="empty-review">Chưa có đánh giá nào cho sản phẩm này.</p>
+        }
+
+        @if (Session["UserID"] != null)
+        {
+            <div class="review-form mt-4">
+                <h5 class="mb-2 fw-bold">Viết đánh giá của bạn</h5>
+
+                <form method="post" action="@Url.Action("ThemDanhGia","Home")">
+                    <input type="hidden" name="maSanPham" value="@Model.MaSanPham" />
+                    <textarea name="noiDung" placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."></textarea>
+                    <button type="submit" class="btn-review">
+                        <i class="bi bi-send me-1"></i> Gửi đánh giá
+                    </button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function syncQuantity() {
+        var qty = document.getElementById("qty").value;
+        var cart = document.getElementById("soLuongCart");
+        var buy = document.getElementById("soLuongBuy");
+
+        if (cart) cart.value = qty;
+        if (buy) buy.value = qty;
+    }
+
+    function tang() {
+        let q = document.getElementById("qty");
+        q.value = parseInt(q.value) + 1;
+        syncQuantity();
+    }
+
+    function giam() {
+        let q = document.getElementById("qty");
+        if (parseInt(q.value) > 1) {
+            q.value = parseInt(q.value) - 1;
+            syncQuantity();
+        }
+    }
+
+    function chonMau(el, id) {
+        document.getElementById("maChiTiet").value = id;
+
+        document.querySelectorAll(".option-btn").forEach(function (btn) {
+            btn.classList.remove("active");
+        });
+
+        el.classList.add("active");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        syncQuantity();
+    });
+</script>

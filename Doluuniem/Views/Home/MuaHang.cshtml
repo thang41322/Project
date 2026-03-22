@@ -1,0 +1,765 @@
+﻿
+@model Doluuniem.Models.CheckoutViewModel
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BETSHOP - Thanh toán</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #b76e3c;
+            --primary-dark: #8f5430;
+            --primary-soft: #fff6ef;
+            --secondary: #e8b07a;
+            --accent: #d94f4f;
+            --text: #2f2a26;
+            --muted: #7a6f66;
+            --bg: #fffaf6;
+            --white: #ffffff;
+            --border: #f1e3d5;
+            --shadow: 0 10px 28px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom, #fffaf6, #fffdfb);
+            color: var(--text);
+            padding: 28px 16px;
+        }
+
+        .checkout-page {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .checkout-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .brand span {
+            color: var(--text);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .checkout-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3f2d20;
+            margin: 0 0 8px;
+        }
+
+        .checkout-subtitle {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .alert-danger {
+            background: #fff1f1;
+            color: #c0392b;
+            border: 1px solid #f0caca;
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .card-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #3f2d20;
+            margin: 0 0 16px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field-group {
+            margin-bottom: 16px;
+        }
+
+        .field-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #4a3425;
+        }
+
+        .form-control,
+        .form-select,
+        textarea {
+            width: 100%;
+            border: 1px solid #e9d9c8;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 14px;
+            color: var(--text);
+            background: #fffdfb;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(183,110,60,0.08);
+        }
+
+        .delivery-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .delivery-option {
+            border: 1px solid #ead8c5;
+            border-radius: 16px;
+            padding: 14px;
+            background: #fffaf6;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .delivery-option:hover {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        .delivery-option input {
+            margin-right: 8px;
+        }
+
+        .delivery-option-title {
+            font-weight: 700;
+            color: #3f2d20;
+        }
+
+        .delivery-option-desc {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #fffaf6;
+            border: 1px solid #efdfd0;
+        }
+
+        .checkbox-item input {
+            margin-top: 3px;
+        }
+
+        .checkbox-item label {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .order-product {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f2e5d8;
+            margin-bottom: 18px;
+        }
+
+        .order-product img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid #f1e3d6;
+            background: #fffaf6;
+        }
+
+        .order-product-info {
+            flex: 1;
+        }
+
+        .order-product-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #3f2d20;
+            margin: 0 0 8px;
+            line-height: 1.5;
+        }
+
+        .product-meta {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .price {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .old-price {
+            margin-left: 8px;
+            font-size: 0.92rem;
+            color: #9b8f86;
+            text-decoration: line-through;
+        }
+
+        .qty-wrap {
+            margin-top: 10px;
+        }
+
+        .qty-control {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ead8c7;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fffaf6;
+        }
+
+        .qty-control button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .qty-control button:hover {
+            background: #f7eadf;
+        }
+
+        .qty-control input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .mini-note {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #fff8f1;
+            border: 1px solid #f0dfcf;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-top: 16px;
+        }
+
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .summary-row.muted {
+            color: var(--muted);
+        }
+
+        .summary-row.total {
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 1px solid #f1e3d7;
+            font-size: 1.08rem;
+            font-weight: 800;
+        }
+
+        .summary-row.total span:last-child {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 16px;
+            background: #fffaf6;
+            border: 1px solid #efdfd0;
+        }
+
+        .payment-option label {
+            margin: 0;
+            cursor: pointer;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .payment-option strong {
+            display: block;
+            color: #3f2d20;
+        }
+
+        .coupon-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .coupon-box input {
+            flex: 1;
+        }
+
+        .policy-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 16px;
+            background: #fffaf6;
+            border: 1px solid #efdfd0;
+        }
+
+        .policy-box label {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .policy-box a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .btn-order {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            margin-top: 18px;
+        }
+
+        .btn-order:hover {
+            opacity: 0.96;
+            transform: translateY(-1px);
+        }
+
+        .safe-note {
+            text-align: center;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @@media (max-width: 992px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .field-grid,
+            .delivery-options {
+                grid-template-columns: 1fr;
+            }
+
+            .card-body {
+                padding: 18px;
+            }
+
+            .order-product {
+                flex-direction: column;
+            }
+
+                .order-product img {
+                    width: 100%;
+                    height: 260px;
+                }
+
+            .checkout-title {
+                font-size: 1.6rem;
+            }
+
+            .delivery-option {
+                display: block;
+                border: 1px solid #ead8c5;
+                border-radius: 16px;
+                padding: 14px;
+                background: #fffaf6;
+                cursor: pointer;
+                transition: 0.25s ease;
+            }
+
+                .delivery-option:hover {
+                    border-color: var(--primary);
+                    background: var(--primary-soft);
+                }
+
+                .delivery-option input {
+                    margin-right: 8px;
+                }
+
+            .delivery-option-title {
+                display: inline;
+                font-weight: 700;
+                color: #3f2d20;
+            }
+
+            .delivery-option-desc {
+                display: block;
+                color: var(--muted);
+                font-size: 13px;
+                margin-top: 4px;
+                margin-left: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-page">
+        <div class="checkout-top">
+            <a href="@Url.Action("Index", "Home")" class="brand">BET<span>SHOP</span></a>
+            <a href="@Url.Action("GioHang", "Home")" class="back-link">
+                <i class="bi bi-arrow-left"></i> Quay lại giỏ hàng
+            </a>
+        </div>
+
+        <div style="margin-bottom: 22px;">
+            <h1 class="checkout-title">Thanh toán đơn hàng</h1>
+            <p class="checkout-subtitle">
+                Hoàn tất thông tin để BETSHOP chuẩn bị món quà thật chỉn chu và giao đến bạn sớm nhất.
+            </p>
+        </div>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert-danger">@TempData["Error"]</div>
+        }
+
+        <form method="post" action="@Url.Action("MuaHang", "Home")">
+            <input type="hidden" name="MaSanPham" value="@Model.MaSanPham" />
+
+            <div class="checkout-layout">
+                <!-- CỘT TRÁI -->
+                <div>
+                    <div class="card-box">
+                        <div class="card-body">
+                            <h3 class="section-title">Hình thức nhận hàng</h3>
+
+                            <div class="delivery-options">
+                                <label class="delivery-option">
+                                    <input type="radio" name="DeliveryMethod" value="home" checked>
+                                    <span class="delivery-option-title">Giao tận nơi</span>
+                                    <span class="delivery-option-desc">Giao đến địa chỉ bạn cung cấp</span>
+                                </label>
+
+                                <label class="delivery-option">
+                                    <input type="radio" name="DeliveryMethod" value="pickup">
+                                    <span class="delivery-option-title">Nhận tại cửa hàng</span>
+                                    <span class="delivery-option-desc">Đến shop lấy hàng trực tiếp</span>
+                                </label>
+                            </div>
+
+                            <h3 class="section-title">Thông tin người nhận</h3>
+
+                            <div class="field-grid">
+                                <div class="field-group">
+                                    <label class="field-label">Tỉnh / Thành phố</label>
+                                    <select name="City" class="form-select">
+                                        <option value="hcm" selected>Hồ Chí Minh</option>
+                                        <option value="hn">Hà Nội</option>
+                                        <option value="dn">Đà Nẵng</option>
+                                    </select>
+                                </div>
+
+                                <div class="field-group">
+                                    <label class="field-label">Số điện thoại</label>
+                                    <input type="text" name="SoDienThoai" class="form-control" placeholder="Nhập số điện thoại" value="@Model.SoDienThoai" required>
+                                </div>
+
+                                <div class="field-group full">
+                                    <label class="field-label">Địa chỉ nhận hàng</label>
+                                    <input type="text" name="DiaChi" class="form-control" placeholder="Số nhà, đường, phường/xã, quận/huyện..." value="@Model.DiaChi" required>
+                                </div>
+
+                                <div class="field-group full">
+                                    <label class="field-label">Lời nhắn / ghi chú</label>
+                                    <textarea name="GhiChu" rows="4" placeholder="Ví dụ: Gói quà giúp mình, giao giờ hành chính, viết thiệp chúc mừng..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-box" style="margin-top: 24px;">
+                        <div class="card-body">
+                            <h3 class="section-title">Tùy chọn thêm</h3>
+
+                            <div class="checkbox-list">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="GoiQua" id="GoiQua">
+                                    <label for="GoiQua">Gói quà giúp tôi để món quà trông đẹp và chỉn chu hơn.</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="VietThiep" id="VietThiep">
+                                    <label for="VietThiep">Thêm thiệp chúc mừng kèm đơn hàng.</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" name="XuatHoaDon" id="XuatHoaDon">
+                                    <label for="XuatHoaDon">Xuất hóa đơn nếu cần cho đơn hàng này.</label>
+                                </div>
+                            </div>
+
+                            <div class="mini-note">
+                                <i class="bi bi-box2-heart me-1"></i>
+                                Nếu đây là món quà tặng, bạn có thể ghi chú thêm nội dung để shop hỗ trợ đóng gói phù hợp.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CỘT PHẢI -->
+                <div>
+                    <div class="card-box">
+                        <div class="card-body">
+                            <h3 class="section-title">Đơn hàng của bạn</h3>
+
+                            <div class="order-product">
+                                <img src="@Url.Content("~/anh/anh/" + Model.HinhAnh)" alt="@Model.TenSanPham" />
+
+                                <div class="order-product-info">
+                                    <h4 class="order-product-name">@Model.TenSanPham</h4>
+
+                                    <div class="product-meta">Quà tặng lưu niệm</div>
+
+                                    <div class="price">
+                                        @String.Format("{0:N0}", Model.DonGia)đ
+                                        <span class="old-price">@String.Format("{0:N0}", Model.GiaCu)đ</span>
+                                    </div>
+
+                                    <div class="qty-wrap">
+                                        <label class="field-label" style="margin-bottom:8px;">Số lượng</label>
+                                        <div class="qty-control">
+                                            <button type="button" onclick="decreaseQty()">-</button>
+                                            <input type="number" id="quantity" name="SoLuong" value="@Model.SoLuong" min="1" onchange="updateTotal()">
+                                            <button type="button" onclick="increaseQty()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="section-title">Mã giảm giá</h3>
+                            <div class="coupon-box">
+                                <input type="text" name="MaGiamGia" class="form-control" placeholder="Nhập mã giảm giá nếu có">
+                            </div>
+
+                            <div style="margin-top: 22px;">
+                                <h3 class="section-title">Phương thức thanh toán</h3>
+
+                                <div class="payment-methods">
+                                    <div class="payment-option">
+                                        <input type="radio" name="PaymentMethod" id="cod" value="cash-on-delivery" checked>
+                                        <label for="cod">
+                                            <strong>Thanh toán khi nhận hàng</strong>
+                                            Kiểm tra hàng và thanh toán trực tiếp khi nhận.
+                                        </label>
+                                    </div>
+
+                                    <div class="payment-option">
+                                        <input type="radio" name="PaymentMethod" id="bank" value="bank-transfer">
+                                        <label for="bank">
+                                            <strong>Chuyển khoản ngân hàng</strong>
+                                            Thanh toán trước qua tài khoản ngân hàng.
+                                        </label>
+                                    </div>
+
+                                    <div class="payment-option">
+                                        <input type="radio" name="PaymentMethod" id="other" value="other">
+                                        <label for="other">
+                                            <strong>Phương thức khác</strong>
+                                            Liên hệ shop để được hỗ trợ thêm.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 24px;">
+                                <h3 class="section-title">Tóm tắt thanh toán</h3>
+
+                                <div class="summary-list">
+                                    <div class="summary-row muted">
+                                        <span>Tạm tính</span>
+                                        <span id="temporary-total">@String.Format("{0:N0}", Model.DonGia * Model.SoLuong)đ</span>
+                                    </div>
+
+                                    <div class="summary-row muted">
+                                        <span>Phí giao hàng</span>
+                                        <span>Miễn phí</span>
+                                    </div>
+
+                                    <div class="summary-row muted">
+                                        <span>Ưu đãi</span>
+                                        <span>0đ</span>
+                                    </div>
+
+                                    <div class="summary-row total">
+                                        <span>Tổng thanh toán</span>
+                                        <span id="final-total">@String.Format("{0:N0}", Model.DonGia * Model.SoLuong)đ</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="policy-box">
+                                <input type="checkbox" name="DongYChinhSach" id="DongYChinhSach" required>
+                                <label for="DongYChinhSach">
+                                    Tôi đồng ý với <a href="#">chính sách bảo mật và điều khoản mua hàng</a> của BETSHOP.
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-order">Xác nhận đặt hàng</button>
+
+                            <div class="safe-note">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Thông tin của bạn sẽ được sử dụng để xử lý đơn hàng và hỗ trợ giao hàng.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateTotal() {
+            const qtyInput = document.getElementById('quantity');
+            let quantity = parseInt(qtyInput.value);
+
+            if (isNaN(quantity) || quantity < 1) {
+                quantity = 1;
+                qtyInput.value = 1;
+            }
+
+            const price = @Model.DonGia;
+            const total = quantity * price;
+
+            document.getElementById('temporary-total').textContent = total.toLocaleString('vi-VN') + 'đ';
+            document.getElementById('final-total').textContent = total.toLocaleString('vi-VN') + 'đ';
+        }
+
+        function increaseQty() {
+            const qtyInput = document.getElementById('quantity');
+            qtyInput.value = parseInt(qtyInput.value || 1) + 1;
+            updateTotal();
+        }
+
+        function decreaseQty() {
+            const qtyInput = document.getElementById('quantity');
+            let current = parseInt(qtyInput.value || 1);
+            if (current > 1) {
+                qtyInput.value = current - 1;
+                updateTotal();
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const policyCheckbox = document.getElementById('DongYChinhSach');
+            if (!policyCheckbox.checked) {
+                e.preventDefault();
+                alert('Vui lòng đồng ý với chính sách trước khi đặt hàng.');
+            }
+        });
+
+        updateTotal();
+    </script>
+</body>
+</html>
